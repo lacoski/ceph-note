@@ -2,7 +2,7 @@
 ---
 ## Tổng quan
 
-IOPS, Latency và Throughput là ba khái niệm quan trọng khi bắt đầu xây dựng hệ thống Storage và cho những ai muốn cải thiện tốc độ Cloud Server/Private Cloud.
+`IOPS`, `Latency` và `Throughput` là ba khái niệm quan trọng khi bắt đầu xây dựng hệ thống Storage và cho những ai muốn cải thiện tốc độ Cloud Server/Private Cloud.
 
 ![](../images/iops-latency-throughput-1.png)
 
