@@ -82,4 +82,4 @@ __Bảng IOPS tương ứng với từng loại ổ cứng__
 > Đối IOPS trên SSD, với các loại SSD enterprise số IOPS lúc này sẽ cao vời vợi. Tuỳ theo model SSD mà có thể lên hàng ngàn (Intel X25-E ~ 8600 IOPS) hoặc chục ngàn (OCZ Vertex 4 ~ 120,000 IOPS) hoặc thậm chí là hàng triệu nếu dùng ổ NVMe!!
 
 ## Nguồn
-https://viettelidc.com.vn/tim-hieu-ve-cac-thong-so-iops-latency-va-throughput-phan-2.html
+https://viettelidc.com.vn/tim-hieu-ve-cac-thong-so-iops-latency-va-throughput.html
