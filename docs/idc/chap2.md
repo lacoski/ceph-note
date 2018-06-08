@@ -146,7 +146,7 @@ Cloud có thể là sản phẩn, công nghệ, cũng như mô hình quản tr�
 
 Các dịch vụ cloud bao gồm các app đặc biệt, cung cấp tính năng quản trị, backup, restore, recovery, phân tính kinh tế, database, data warehousing, document sharing, office, các giải pháp storage, object storage, video, vm, ..
 
-Các từ viết tắt: `x as a Service`, trong đó x có thể là:
+Qui chuẩn service. Các từ viết tắt: `x as a Service`, trong đó x có thể là:
 - Archive as a Service (AaaS)
 - Application as a Service (AaaS)
 - Backup as a Service (BaaS)
@@ -157,3 +157,49 @@ Các từ viết tắt: `x as a Service`, trong đó x có thể là:
 - Software as a Service (SaaS)
 - Storage as a Service (SaaS)
 - ....
+
+# Virtualization: Servers, Storage, and Networking
+Có rất nhiều khía cạnh khi nói đến ảo hóa. Các công nghệ ảo hóa được tiếp cận, phát triển, ứng dụng từ các nhà cung cấp để nâng cáo hiệu năng, tài nguyên server, storage. Giảm thiểu năng lượng, chi phí làm mát, không gian, phương pháp quản trị, tài sử dụng, tái tận dụng, tăng sự đa dạng.
+
+pic 13
+
+> Sơ đồ mô hình, kiếm trúc cơ bản
+
+1 khía cạnh quan trọng của ảo hóa là khả năng tích hợp công nghệ mới vào hạ tàng, tài nguyên, môi trường sản phẩm đã có, và sự thay thế các công nghệ cũ.
+
+Ảo hóa cũng được sử dụng để linh hoạt điều chỉnh tài nguyên, nguồn lực cho các vấn đề khác nhau theo kế hoạch, hoặc ko theo kế hoạch.
+
+Cho phép bảo trì linh hoạt mà không làm ảnh hướng đến toàn hệ thống.
+
+# Virtualization and Storage Services
+Các storage virtualization service khác nhau hoạt động tại các vị trí khác nhau, hỗ trợ các thành phần cloud.
+
+1 trong nhưng vấn đề thường nói đến storage virtualization là sự tập hợp ( aggregation) và pooling solution. 2 vấn đề nhằm cung cố LUNs, file system, .. các tính năng quản trị, khả năng lưu trữ, tính bảo vệ (investment protection), khả năng quản trị dữ liệu không đồng nhất trên các  tiers, categories, and price bands of storage from various vendors.
+
+Hầu hết các storage virtualization solutions sử dụng khái niệm trừ tượng (abstraction). tính trừ tượng (Abstraction) và minh bạch trong công nghệ (technology transparency) bao gồm device emulation, interoperability, coexistence, backward compatibility, transition to new technology with transparent data movement and migration, support for HA and BC/DR, data replication or mirroring (local and remote), snapshots, backup, and data archiving.
+
+pic 14
+
+# Data and Storage Access
+Quan hệ, sự phụ thuộc giữa các thành phần lưu trữ
+
+pic 15
+
+1 số mô hình, hạ tầng từ cơ bản tới phức tạp
+
+pic 16
+
+# Mô hình DAS, NAS, SAN
+
+pic 17
+
+pic 18
+
+# Networked Storage: Public and Private Clouds
+
+mô hình cloud kết hợp DAS, NAS, SAN storage
+pic 19
+
+Bảng tổng hợp các thuật ngữ
+
+pic 20 21
