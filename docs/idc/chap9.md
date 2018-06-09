@@ -62,4 +62,73 @@ pic 26
 
 ## Storage System Architectures
 
-243 / 25
+Storage solutions tập trung vào kiến trúc hoặc tính đóng gói của storage system, giải pháp từ nhỏ tới các hệ thống lớn, các hệ thống doanh nghiệp chuyên dụng. Các hệ thống khác nhau sẽ sử dụng các giao thức, protocol chuẩn hóa, được định nghĩa theo quy chuẩn, tuân theo kiến trúc storage system, tính tương thích cao.
+
+Ngoài việc hỗ trợ các hệ thống mở, tương thích các mainframe, Highend cache-centric storage system, các hệ thống còn hỗ trợ tới hàng nghìn hdds, bao gồm cả các SSD, SAS HDD, các chuẩn kết nối tốc độ cao.
+
+## Servers as Storage, Storage as Servers
+"Open storage" có nghĩa là storage cho open system hoặc storage system sửa dụng công nghệ mở. Giá trị của storage system là tận dụng tính mở của kỹ thuật mở, tính linh hoạt trong lựa chọn storage software stack, khả năng chạy giải pháp trên phần cứng được chọn, trái ngược với giải pháp trọn gói (tính đóng gói cao, khả năng tùy chỉnh thấp). 2 công nghệ thường thấy là ZFS hoặc Microsoft Windows Storage Server
+
+pic 27
+
+Storage systems (Table 9.6), gateways, and appliances (thiết bị) sử dụng công nghệ mở bao gồm 1 phần mềm chuyên dụng hoặc tool quản trị storage chạy trên thiết bị mở hoặc trên phần cứng chuấn x86-based PC server. 1 số giải pháp khác cho openstorage là sử dụng các open source software chạy trên các phần cứng mở (đa dạng) thay vì các phần mềm chuyên dụng độc quyền.
+
+> For some of the solutions, internal dedicated SAS, SATA, and/or SSD disk drives are
+used. Other solutions may use a mix of internal and external or all external storage,
+either JBOD (Just a Bunch Of Disks) enclosure shelves or complete storage systems
+
+Như bảng trên, các storage thương sử dụng các công nghệ mở, trên các phần cứng đặc biệt, đó là các cloud gateway hoặc các thiết bị chuyên dụng. 1 số trường hợp  cloud access gateways or appliances, local storage có thể bao gồm các giải pháp cache, buffer, temporary area, khả năng snapshot, backup, 1 số tính năng di chuyên data trên cloud. Rất nhiều giải pháp cloud, service hoặc các nhà cung cấp service tận dụng nhiều công nghệ khác nhau để tạo sự đa dạng service trong cloud.
+
+# Clustered and Grid Storage
+Clustered and grid storage, được biết là khả năng bao hàm hoặc tính mở rộng của hệ thống, chúng là thể là block, file, object based storage, bao gồm nhiều tính năng khác nhau. Hạ tầng các tổ chức thường rất lớn, phức tạc, đòi hỏi tính tinh hoạt => cluster storage có khả năng đáp ứng được các yêu cầu trên (performance, availability, capacity, and functionality). Từ góc nhìn hiệu năng, 1 số hệ thống được tối ưu cho khả năng đọc ghi random hoặc liên tiếp phục vụ hoạt động các file, web page, truy xuất metadata. 1 số hệ thống khác được tối ưu cho khả năng truy xuất liên tiếp lớn như các video, image, các dữ liệu phúc tạp, khi các giải pháp được trộn lẫn. 1 số giải pháp mở rộng hiệu năng với dung lương tối thiểu, 1 số khác tối ưu cho khả năng lưu trữ lớn. Từ đó, ta thấy được cluster or grid storage solution không tự suy luận ra được quy mô, hiểu năng, khả năng lưu trữ của storage system.
+
+> The term cluster means different things to different people, particularly when clustered storage is combined with NAS or file-based storage
+
+Clustered storage solutions có thể truy cập trông qua block  (iSCSI, FC, or FCoE), file (NFS, pNFS, or CIFS), object, HTTP, APIs, or proprietary approaches (1 sô pp khác). Clustered Storage giống với clustered servers, cung cấp khả năng mở rộng không giới hạn - scale for performance, scale for availability, and scale for capacity and to enable growth in a modular fashion—adding performance and intelligence capabilities along with capacity.
+
+Đối với các hạ tầng nhỏ, clustered storage cho phép tính modular cung cấp khả năng  pay-as-you-grow, mở rộng khi cần. Đối với hạ tầng lơn, cluster storage cho phép mở rộng không giới hạn, đáp ứng các yêu cầu performance, capacity, or availability.
+
+Các application sử dụng clustered, bulk, grid, and “big data” storage solutions include:
+- Unstructured data files
+- Data warehouse, data mining, business analytics
+- Collaboration including email, SharePoint, and messaging systems
+- Home directories and file shares
+- Web-based and cloud or managed service providers
+- Backup/restore and archive
+- Rich media, hosting, and social networking Internet sites
+- Media and entertainment creation, animation rendering and postprocessing
+- Financial services and telecommunications, call detail billing
+- Project-oriented development, simulation, and energy exploration
+- Look-up or reference data
+- Fraud detection and electronic surveillance
+- Life sciences, chemical research, and computer-aided design
+
+Clustered storage solutions cần đáp ứng các yêu cầu về large sequential parallel or concurrent file access, hỗ trợ pp truy cập ngẫy nhiên tới các small file. Scalable và flexible clustered file servers, tương tính các servers, networking, and storage technologies, cũng như đáp ứng được các công nghệ mới, yêu cầu lưu trữ dữ liệu không có cấu trúc, cloud services, and multimedia. Đáp ứng các yêu cầu về hiệu năng (IOPS, bandwidth), độ trễ thấp, dung lượng, tính linh hoạt và chi phí thấp.
+
+pic 28
+
+Scalable and flexible clustered file server and storage systems (tính mở dụng, linh hoạt trên file server, hệ thống lưu trữ) đáp ứng khả năng cải tiến phần cứng theo từng năm, tránh sự lạc hậu hạ tầng.
+
+Các yêu cầu cần đáp ứng grid, clustered, big data, and scale-out storage:
+- Can memory, processors, and I/O devices be varied?
+- Is there support for large file systems with many small or large files?
+- What is the performance for small, random, concurrent IOPS?
+- What is the performance for single-threaded and parallel or sequential I/O?
+- How is performance enabled across the same cluster instance?
+- Can a file system and file be read and written to from all nodes concurrently?
+- Are I/O requests, including meta-data look-up, sent to a single node?
+- How does performance scale as nodes and storage are increased?
+- How disruptive is adding new or replacing existing storage?
+- Is proprietary hardware needed, or can industry-standard components be used?
+- What data management features, including load balancing, exist?
+- What interface and protocol options are supported?
+
+## Cloud Storage
+pic 29
+Cloud storage (Figure 9.11) có thể public, private, có kiến trúc, 1 sản phẩm, hoặc giải pháp bao gồm hardware, software, networking, services. 1 số cloud storage services hoặc giải pháp tập trung vào các vấn đề cụ thể (file sharing, backup/restore, archiving, BC/DR, lưu trữ data dạng multimedia như photos, video, and audio.).
+
+1 số sản phẩn cloud service tối ưu cho security, database or email and Web hosting, healthcare electronic medical records (EMR), or digital asset management (DAM), including Picture Archiving Communication Systems (PACS).
+
+Có nhiều cách để truy cập Cloud storage, nó sẽ dựa trên loại service hoặc sản phẩm. 1 số truy cập dựa trên NAS file-based interface, hoặc truy cập qua gateway, các thiết bị, 1 số software driver module. Bên cạnh đó, cloud storage cũng cung cấp các giao thức mở rộng, cho phép truy cập qua cloud appliances or gateways. Data lưu trên cloud cung cấp, hỗ trợ tính năng như replication, snapshot, babandwidth optimization, security, metering, reporting, and other capabilities. Cloud services tận dụng nhiều giải pháp khác nhau để đa dạng giải pháp cung cấp (VD: Google)
+
+249 - 251
