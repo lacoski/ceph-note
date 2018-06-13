@@ -162,4 +162,28 @@ Storage virtualization functionalities include:
 - Heterogeneous snapshots and replication on a local or wide area basis
 - Thin and dynamic provisioning across storage tiers
 
-Aggregation and pooling for consolidation
+Việc Aggregation và pooling các LUN, file system, volume poling, nhằm tăng cường khả năng quản trị, giát sát, bao gồm đồng nhất dữ liệu suốt các lớp khác nhau. 
+
+Hầu hết các giải pháp storage virtualization là các dạng abstraction. Abstraction và công nghệ bên trong bao gồm trừ tượng thiết bị, khả năng tương tác, coexistence, tương thích ngược (back- ward compatibility), công nghệ di chuyển data, ánh xạ, hỗ trợ tính HA, BC, DR. 1 số loại ảo hóa cho phép sao chép dữ liệu không đồng nhất, ánh xạ (mirroring) (local hoặc từ xa), snapshot, backup, lưu trữ data (data archiving), application awareness
+
+Các vấn đề cần cân nhắc trong Storage virtualization:
+- What are the various application requirements and needs?
+- Will it be used for consolidation or facilitating IT resource management?
+- What other technologies are currently in place or planned for the future?
+- What are the scaling (performance, capacity, availability) needs?
+- Will the point of vendor lock-in be shifting or costs increasing?
+- What are some alternative and applicable approaches?
+- How will a solution scale with stability?
+
+1 số dạng storage virtualization là các virtual storage server hoặc các storage partition cho phép hơp nhật các hệ thống lưu trữ, sau đó tách biệt các phân vùng cho các app, server dưới dạng các hệ thống lưu trữ khác nhau. Ý nghĩa của giải pháp là tính tách biệt, hợp nhất, cho phép trừ tượng các LUNs, volumes, file system. VD: storage server hợp nhất dữ liệu trên các ứng dụng đồng thời ngăn việc truy cập trái phép trên các ứng dụng, khác hàng, người dùng.
+
+pic 1
+
+1 số giải pháp storage virtualization xây dựng dựa trên các software chạy trên thiết bị hoặc các phần cứng hệ thống cho phép mô phỏng.
+
+### Storage Virtualization Locations
+Storage virtualization nằm tại nhiều vị khí khác nhau, bao gồm các server, thiết bị network, tất cả tổng hợp thành 1 storage system. 
+
+Việc sử dụng storage virtualization và nơi đặt sẽ tùy theo thiết kế của hệ thống. Giải pháp cloud có thể tiếp cần theo nhều hướng, có thể kết hợp nhiều giáp pháp, miễn là các giải pháp đó phù hợp với yêu cầu của bạn.
+
+pic 2
