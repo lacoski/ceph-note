@@ -131,4 +131,35 @@ Cloud storage (Figure 9.11) có thể public, private, có kiến trúc, 1 sản
 
 Có nhiều cách để truy cập Cloud storage, nó sẽ dựa trên loại service hoặc sản phẩm. 1 số truy cập dựa trên NAS file-based interface, hoặc truy cập qua gateway, các thiết bị, 1 số software driver module. Bên cạnh đó, cloud storage cũng cung cấp các giao thức mở rộng, cho phép truy cập qua cloud appliances or gateways. Data lưu trên cloud cung cấp, hỗ trợ tính năng như replication, snapshot, babandwidth optimization, security, metering, reporting, and other capabilities. Cloud services tận dụng nhiều giải pháp khác nhau để đa dạng giải pháp cung cấp (VD: Google)
 
-249 - 251
+## Storage Virtualization and Virtual Storage
+Có nhiều loại storage virtualization, bao gồm aggregation hoặc  pooling, emulation, and abstraction of different tiers of physical storage providing transparency of physical resources
+
+Storage virtualization có thể thấy tại nhiều địa điểm khác nhau như server software, app server, các OS, trong các thiết bị, cũng như các storage systems.
+
+### Volume Mangers and Global Name Spaces
+1 Hình thể cơ bản của storage virtualization là volume manager, nó trừ tượng physical storage cho app và file system. Bên cạnh đó cung cấp các sự trừ tượng khác nhau cho các công nghệ khác nhau. Volume manager cũng được sử dụng để hỗ trợ sự tập hợp (aggregation), tối ưu hiệu năng, infrastructure resource management (IRM) functions.
+
+Volume manager cung cấp lớp trừ tượng, cho phép các loại physical storage khác nhau được thêm, loại bỏ, phục vụ cho hoạt động bảo dưỡng, nâng cấp mà không gây ảnh hưởng tới app và file system.
+
+> Các tính năng IRM được hỗ trợ trong volume manager, bao gồm storage allocation, provisioning, data protection operations như snapshots và replication; Các phương pháp này sẽ khác nhau tùy theo nhà cung cấp.
+
+> File systems bao gồm clustered và distributed systems, có thể được xây dựng bên trên liên kết với các volume managers để hỗ trợ việc mở rộng(scaling) bảo đảm performance, availability, and capacity.
+
+Global name spaces cung cấp các dạng dạng khác nhau để tạo các tập hợp, trừ tượng trên nhiều file system khác nhau. Global name space có thể nằm trên nhiều file system khác nhau, cung cấp giao diện truy cập, dễ dàng cho việc quản trị.
+
+### Virtualization and Storage Services
+Virtual storage và storage virtualization cho phép agility, resiliency, flexibility,
+and data and resource mobility to simplify IRM. 1 số storage virtualization solutions tập trung vào sự hợp nhất và pooling. Có nghĩa là mở rộng, tập trung vào tính ảo hóa và sự hợp nhất, tập hợp các LUN, bảo đảm tính agility, flexibility, data or system movement, technology refresh, and other common time-consuming IRM tasks.
+
+Nhiều loại storage virtualization services thực hiện trên các các địa điểm khác nhau đễ hỗ trợ nhiều tác vụ. Tính năng Storage virtualization bao gồm pooling, aggregation
+trên cả block- và file-based storage, khả năng tương tác với tài nguyên IT hardware và software, các virtual file system, di chuyển dữ liệu trên hoạt động nâng cấp, bảo trì, hỗ trợ tính high availability (HA), business continuance(BC), và disaster recovery (DR).
+
+Storage virtualization functionalities include:
+- Pooling or aggregation of storage capacity
+- Transparency or abstraction of underlying technologies
+- Agility or flexibility for load balancing and storage tiering
+- Automated data movement or migration for upgrades or consolidation
+- Heterogeneous snapshots and replication on a local or wide area basis
+- Thin and dynamic provisioning across storage tiers
+
+Aggregation and pooling for consolidation
