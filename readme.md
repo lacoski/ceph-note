@@ -22,4 +22,5 @@
 ## Cloud and Storage
 ### [1. Cloud và Virtual Data Storage Networking - Xu hướng và các khía cạnh](docs/idc/chap1.md)
 ### [2. Cloud, Virtualization, and Data Storage Networking Fundamentals](docs/idc/chap2.md)
+### [3. Dịch vụ Storage và hệ thống - Storage Services and Systems](docs/idc/chap9.md)
 
