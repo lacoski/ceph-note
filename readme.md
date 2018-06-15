@@ -3,6 +3,7 @@
 ## Thuật ngữ
 ### [1. Phân biệt SLA, SLO](docs/terms/sla-slo.md)
 ### [2. Quality of service (QoS)](docs/terms/QoS.md)
+### [3. Khái niểm U trong data center](docs/terms/u-mean-datacenter.md)
 
 ## Vấn đề cơ bản
 ### [1. File system](https://github.com/lacoski/khoa-luan#1-file-system)
@@ -23,4 +24,3 @@
 ### [1. Cloud và Virtual Data Storage Networking - Xu hướng và các khía cạnh](docs/idc/chap1.md)
 ### [2. Cloud, Virtualization, and Data Storage Networking Fundamentals](docs/idc/chap2.md)
 ### [3. Dịch vụ Storage và hệ thống - Storage Services and Systems](docs/idc/chap9.md)
-
