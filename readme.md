@@ -13,6 +13,7 @@
 
 ## Ceph
 ### [Bài viết về Ceph](https://github.com/lacoski/khoa-luan#6-ceph)
+### Ceph PGs
 
 ## Bài viết
 ### [1. Độ quan trọng latency](docs/latency.md)
