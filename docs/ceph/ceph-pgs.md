@@ -57,7 +57,7 @@ VD: cluster bao gồm 160 OSD, 3 repli
 => total PGs = (OSD * 100)/3 = (160*100)/3 = 5333.333 => làm tròn 8192 (2^n > 5333)
 ```
 
-## Qúa trình khắc phục lỗi:
+## Quá trình khắc phục lỗi:
 1. Khi OSD lỗi, tất cả bản sao trên OSD bị mất, mức nhân bản PG từ 3-2
 2. Ceph thực hiện quá trình khôi phục, PG sẽ chọn OSD mới, đưa vào PGs, thực hiện quá trình nhân bản
 3. Trường hợp xấu, OSD thứ trong PGs chết (chết 2/3) trước khi OSD được đừa vào cụm => Dữ liệu nguy hiểm (chỉ còn 1 bản backup)
