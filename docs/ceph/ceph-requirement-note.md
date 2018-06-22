@@ -37,7 +37,9 @@ Với Cluster network, các tiến trình của Ceph sẽ sử dụng đường 
 Vì vậy cần dựa theo hạ tầng, đánh giá để thiết kế đường truyền phù hợp, nâng cao hiệu năng, chất lượng.
 
 ### Yêu cầu MDS
+
 Ceph MDS yêu cầu nhiều tài nguyên. Tối thiểu CPU (>= 4 core). Ceph MDS phụ thuộc vào tùy chỉnh data caching, và để nhanh chóng đáp ứng yêu cầu chúng sẽ yêu cầu rất nhiều RAM. Số lượng Ram cao sẽ cải thiện hiệu năng CephFS, vì vậy cần đặt Ceph MDS trên máy vật lý với nhiều tài nguyên RAM, CPU (core). Yêu cầu network cho Ceph MDS tối thiểu 1 GB.
+
 ---
 # Tối ưu dựa trên thành phần
 ## SSD
