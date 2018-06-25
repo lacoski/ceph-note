@@ -16,6 +16,8 @@
 ### [Bài viết về Ceph](https://github.com/lacoski/khoa-luan#6-ceph)
 ### [Tổng quan về Ceph PGs](docs/ceph/ceph-pgs.md)
 ### [Yêu cầu khi xây dựng Ceph](docs/ceph/ceph-requirement-note.md)
+### [Cài đặt Ceph thủ công](docs/ceph/ceph-manual.md)
+
 ## Bài viết
 ### [1. Độ quan trọng latency](docs/latency.md)
 ### [2. Tìm hiểu về các thông số: IOPS, Latency và Throughput](docs/iops-latency-throughput.md)
