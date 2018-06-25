@@ -160,7 +160,7 @@ osd pool default pgp num = {n}
 osd crush chooseleaf type = {n}
 
 VD:
-global]
+[global]
 fsid = cf9343ab-1662-43b6-9fcb-82588a0c8f23
 mon initial members = mon1
 mon host =  192.168.2.151
@@ -187,10 +187,17 @@ sudo touch /var/lib/ceph/mon/ceph-node1/done
 sudo touch /var/lib/ceph/mon/ceph-node1/upstart
 ```
 
+Chuẩn bị
+```
+chown -R ceph:ceph /var/lib/ceph/mon
+chown -R ceph:ceph /var/log/ceph
+chown -R ceph:ceph /var/run/ceph
+chown -R ceph:ceph /etc/ceph
+```
 Start the monitor(s).
 ```
 sudo systemctl start ceph-mon@node1
-sudo systemctl enable ceph-mon@mon1
+sudo systemctl enable ceph-mon@node1
 sudo systemctl status ceph-mon@node1
 ```
 
@@ -312,3 +319,56 @@ systemctl start ceph-mon@mon1
 
 ## Vấn đề
 Nếu Node Mon chết, trong thời gian node mon chết có sự kiện sảy ra OSD chết => không update trạng theo Ceph status (ceph -s)
+
+
+## ADDING A MONITOR
+> cần chia sẻ key /etc/ceph/ceph.client.admin.keyring
+> Sử dụng key trên cho bước chứng thực
+
+Chuẩn bị
+```
+chown -R ceph:ceph /var/lib/ceph/mon
+chown -R ceph:ceph /var/log/ceph
+chown -R ceph:ceph /var/run/ceph
+chown -R ceph:ceph /etc/ceph
+```
+
+Create the default directory on the machine that will host your new monitor.
+```
+sudo mkdir /var/lib/ceph/mon/ceph-{mon-id}
+
+VD:
+mkdir /var/lib/ceph/mon/ceph-mon-1
+```
+
+Retrieve the keyring for your monitors, where {tmp} is the path to the retrieved keyring, and {key-filename} is the name of the file containing the retrieved monitor key.
+```
+ceph auth get mon. -o {tmp}/{key-filename}
+
+VD:
+ceph auth get mon. -o /tmp/ceph.mon.keyring
+```
+
+Retrieve the monitor map, where {tmp} is the path to the retrieved monitor map, and {map-filename} is the name of the file containing the retrieved monitor monitor map.
+```
+ceph mon getmap -o {tmp}/{map-filename}
+
+VD:
+ceph mon getmap -o /tmp/monmap
+```
+
+Prepare the monitor’s data directory created in the first step. You must specify the path to the monitor map so that you can retrieve the information about a quorum of monitors and their fsid. You must also specify a path to the monitor keyring:
+```
+sudo ceph-mon -i {mon-id} --mkfs --monmap {tmp}/{map-filename} --keyring {tmp}/{key-filename}
+
+VD:
+sudo ceph-mon -i mon-1 --mkfs --monmap /tmp/monmap --keyring /tmp/ceph.mon.keyring
+```
+
+Start the new monitor and it will automatically join the cluster. The daemon needs to know which address to bind to, either via --public-addr {ip:port} or by setting mon addr in the appropriate section of ceph.conf. For example:
+```
+ceph-mon -i {mon-id} --public-addr {ip:port}
+
+VD:
+ceph-mon -i mon-1 --public-addr 192.168.2.154
+```
