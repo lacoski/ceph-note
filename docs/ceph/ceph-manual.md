@@ -4,6 +4,7 @@
 Áp dụng cho việc phát triển script, các công cụ quản trị từ xa (SaltStack, ansiable chef, juju)
 
 ## Kiến trúc triển khai
+![](https://github.com/lacoski/khoa-luan/raw/master/Ceph/PIC/ceph-lumi-lab-7.png)
 
 ## Phần 1: Cài đặt Ceph
 > Thực hiện trên tất cả các node triển khai Ceph (các tool triển khai ceph hỗ trợ điều này)
@@ -83,6 +84,7 @@ Các port cần chú ý:
 
 
 ## Phần 3: Khởi tạo MONITOR BOOTSTRAPPING
+> Trên tất cả các node
 ### Bước 1: Truy cập node Monitor
 ```
 ssd root@<monitor-node>
@@ -266,6 +268,8 @@ Kiếm tra lại node monitor đang chạy
 ```
 
 ## Phần 4: Tạo MANAGER DAEMON CONFIGURATION - MGR
+> Trên node Ceph Admin
+
 Tạo khóa chứng thực cho tiến trình:
 ```
 ceph auth get-or-create mgr.$name mon 'allow profile mgr' osd 'allow *' mds 'allow *'
