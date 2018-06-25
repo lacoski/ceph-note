@@ -17,6 +17,7 @@
 ### [Tổng quan về Ceph PGs](docs/ceph/ceph-pgs.md)
 ### [Yêu cầu khi xây dựng Ceph](docs/ceph/ceph-requirement-note.md)
 ### [Cài đặt Ceph thủ công](docs/ceph/ceph-manual.md)
+### [Quản trị Ceph - Thêm xóa Mon, OSD thủ công](docs/ceph/ceph-admin-mon-osd.md)
 
 ## Bài viết
 ### [1. Độ quan trọng latency](docs/latency.md)
