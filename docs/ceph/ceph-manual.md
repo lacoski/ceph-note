@@ -156,8 +156,8 @@ Sau bước này cần chỉnh sửa lại quyền 2 file chứa khóa:
 
 ```
 cd /tmp
-chown -R ceph:ceph ceph ceph.mon.keyring
-chown -R ceph:ceph ceph monmap
+chown -R ceph:ceph ceph.mon.keyring
+chown -R ceph:ceph monmap
 ```
 
 ### Bước 7: Generate a monitor map using the hostname(s), host IP address(es) and the FSID. Save it as /tmp/monmap:
