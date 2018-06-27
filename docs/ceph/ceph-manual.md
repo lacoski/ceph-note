@@ -149,6 +149,16 @@ sudo ceph-authtool /tmp/ceph.mon.keyring --import-keyring /etc/ceph/ceph.client.
 sudo ceph-authtool /tmp/ceph.mon.keyring --import-keyring /var/lib/ceph/bootstrap-osd/ceph.keyring
 ```
 
+
+### Bước 7: Generate a monitor map using the hostname(s), host IP address(es) and the FSID. Save it as /tmp/monmap:
+```
+monmaptool --create --add {hostname} {ip-address} --fsid {uuid} /tmp/monmap
+
+VD:
+monmaptool --create --add node1 192.168.0.1 --fsid a7f64266-0894-4f1e-a635-d0aeaca0e993 /tmp/monmap
+```
+> Chú ý tên hostname (phải cùng tên trong Ceph.conf, chú ý cả ip address)
+
 Sau bước này cần chỉnh sửa lại quyền 2 file chứa khóa:
 - /tmp/monmap
 - /tmp/ceph.mon.keyring
@@ -159,15 +169,6 @@ cd /tmp
 chown -R ceph:ceph ceph.mon.keyring
 chown -R ceph:ceph monmap
 ```
-
-### Bước 7: Generate a monitor map using the hostname(s), host IP address(es) and the FSID. Save it as /tmp/monmap:
-```
-monmaptool --create --add {hostname} {ip-address} --fsid {uuid} /tmp/monmap
-
-VD:
-monmaptool --create --add node1 192.168.0.1 --fsid a7f64266-0894-4f1e-a635-d0aeaca0e993 /tmp/monmap
-```
-> Chú ý tên hostname (phải cùng tên trong Ceph.conf, chú ý cả ip address)
 
 ### Bước 8: Tạo data directory (or directories) trên monitor host(s).
 ```
