@@ -281,6 +281,7 @@ ceph auth get-or-create mgr.mgr-1 mon 'allow profile mgr' osd 'allow *' mds 'all
 
 Chuyển key vừa sinh tới thư mục `/var/lib/ceph/mgr/ceph-mgr-1`
 ```
+mkdir -p /var/lib/ceph/mgr/ceph-mgr-1/
 touch /var/lib/ceph/mgr/ceph-mgr-1/keyring
 vi /var/lib/ceph/mgr/ceph-mgr-1/keyring
 ```
@@ -292,10 +293,11 @@ Nội dung
 
 Chạy tiến trình ceph-mgr:
 ```
+# Bằng Ceph
 ceph-mgr -i $name
 
-or
-
+# Trên service
+systemctl start ceph-mgr@mgr-1
 systemctl status ceph-mgr@mgr-1
 systemctl enable ceph-mgr@mgr-1
 ```
@@ -325,6 +327,10 @@ Kiểm tra trạng thái
 > Cần tạo tạo Partition trên ổ địa (fdisk /dev/...)
 
 > Các node OSD cần được chia sẻ key từ node admin (/var/lib/ceph/bootstrap-osd/ceph.keyring)
+
+```
+scp /var/lib/ceph/bootstrap-osd/ceph.keyring root@<node>:/var/lib/ceph/bootstrap-osd/ceph.keyring
+```
 
 ### Chuẩn bị: Chuyển cấu hình /etc/ceph/ceph.conf từ node admin
 ```
