@@ -22,7 +22,7 @@
 ## Bài viết
 ### [1. Độ quan trọng latency](docs/latency.md)
 ### [2. Tìm hiểu về các thông số: IOPS, Latency và Throughput](docs/iops-latency-throughput.md)
-### [3. Tìm hiểu về các thông số: IOPS, Latency và Throughput - phần 2]
+### [3. Tìm hiểu về các thông số: IOPS, Latency và Throughput - phần 2](docs/iops-latency-throughput-2.md)
 ### [4. Ý nghĩa các thông số: IOPS, Latency và Throughput](docs/terms/iops-latency-throughput.md)
 ### [5. Chuẩn PCI-E](docs/terms/pcie.md)
 
