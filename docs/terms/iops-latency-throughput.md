@@ -67,6 +67,91 @@ Từ đó cùng 1 loại ổ đĩa, tốc độ đọc ghi từ 121 MB/s giảm 
 
 ![](images/ceph-ilt-4.png)
 
+
+Cả 2 tham số IOPS và throughput đều quan trọng, tùy theo bài toán
+
+Tham số IOPS có thể tách ra thành các vấn đề
+- Tổng IOPS, Số IOPS của ổ = số IOPS đọc ghi liên tiếp + đọc ghi ngẫu nhiên. Đây là vấn đề được quan tâm trong thực tế
+- IOPS đọc ngẫu nhiên với hiệu suất 100% (Số IOPS có thể sử dụng cho đọc ngẫu nhiên)
+- IOPS ghi ngẫu nhiên với hiệu suất 100% (Số IOPS thực sự có thể sử dụng cho ghi ngẫu nhiên)
+- IOPS đọc tuần tự với hiệt suất 100% (Số IOPS có thể sử dụng cho đọc tuần tự)
+- IOPS ghi tuần tự với hiệt suất 100% (Số IOPS có thể sử dụng cho ghi tuần tự)
+
+VD Trên tool test NFS
+
+pic 5
+
+Hoạt động IO thực hiện trên ổ theo quy trình:
+- Bước 1: Controller sinh cmd IO tới ổ
+- Bước 2: Đĩa và đầu đọc đọc và tìm kiếm vị trí IO. (Đây được gọi là quá trình tìm kiếm)
+ - Dữ liệu tại thời điểm này vẫn chưa thể đọc, phải chờ tới thời điểm đầu đọc quay tới init data block (block khởi tạo). Việc này dẫn đến độ trẽ quay
+- Bước 3: Dự liệu sau đó được đọc tuần tự tới khi hoàn thành quá trình đọc
+ - Tiến trình này gọi là Data Transfer (quá trình truyền dữ liệu). Tiến trình này đi cùng với tham số Transfer time (Thời gian truyền). 
+
+Sau 3 bước trên, hoàn tất quá trình IO.
+
+Các nhà sản xuất ổ đĩa thường đặt các tham số này trên bìa sản phẩn, thường đặt dưới tên 
+- Average addressing time: Thời gian dữ liệu có thể đọc hoặc ghi trên bất kỳ track, nằm tại bất kỳ đầu trên disk. 
+- Disk rotation speed: Thời gian đĩa và đầu đọc tìm được đến vị trí bắt đầu của track chứa dữ liệu. 
+- Maximum transmission speed: Cung cấp thời gian thời gian truyền tối đa, trong thực tế giá trị này sẽ rất khác, tùy theo từng IO Size sẽ có thời gian truyền khác nhau. Thời gian này bằng `IO Chunk Size / Max Transfer Rate`
+
+> 3 tham số ứng với 3 bước trên
+
+Công thức tính thười gian IO đơn:
+```
+IO Time = Seek Time + 60 sec/Rotational Speed/2 + IO Chunk Size/Transfer Rate
+```
+
+Tính toán IOPS
+```
+IOPS = 1/IO Time = 1/(Seek Time + 60 sec/Rotational Speed/2 + IO Chunk Size/Transfer Rate)
+```
+
+VD: Với hoạt động đọc ghi ngẫu nhiên
+```
+4K (1/7.1 ms = 140 IOPS) 
+5ms + (60sec/15000RPM/2) + 4K/40MB = 5 + 2 + 0.1 = 7.1 
+
+8k (1/7.2 ms = 139 IOPS) 
+5ms + (60sec/15000RPM/2) + 8K/40MB = 5 + 2 + 0.2 = 7.2 
+
+16K (1/7.4 ms = 135 IOPS) 
+5ms + (60sec/15000RPM/2) + 16K/40MB = 5 + 2 + 0.4 = 7.4 
+
+32K (1/7.8 ms = 128 IOPS) 
+5ms + (60sec/15000RPM/2) + 32K/40MB = 5 + 2 + 0.8 = 7.8 
+
+64K (1/8.6 ms = 116 IOPS) 
+5ms + (60sec/15000RPM/2) + 64K/40MB = 5 + 2 + 1.6 = 8.6
+```
+
+VD: Đối với đọc ghi tuần tự
+```
+4K (1/0.1 ms = 10000 IOPS) 
+0ms + 0ms + 4K/40MB = 0.1 
+
+8k (1/0.2 ms = 5000 IOPS) 
+0ms + 0ms + 8K/40MB = 0.22K 
+
+(1/0.4 ms = 2500 IOPS) 
+0ms + 0ms + 16K/40MB = 0.4 
+
+32K (1/0.8 ms = 1250 IOPS) 
+0ms + 0ms + 32K/40MB = 0.8 
+
+64K (1/1.6 ms = 625 IOPS) 
+0ms + 0ms + 64K/40MB = 1.6
+```
+
+Qua đó khi nói đến IOPS, nó sẽ nói tới khả năng IO của hệ thống. Số lượng IOPS sẽ khác nhau khi tính xét theo đọc ghi tuần tự và ngẫu nhiên. IOPS tùy thuộc vào size của IO block, số IOPS sử dụng cho các size IO block sẽ khác nhau. 
+
+__IOPS trên SSD và HDD__
+
+Xem thêm: https://en.wikipedia.org/wiki/IOPS
+
+
+
+
 ## App tương tác với Storage
 Các App tương tác với Storage
 
@@ -81,3 +166,13 @@ Các App tương tác với Storage
 Trước đây, các giao dịch trực tuyến phụ thuộc rất nhiều vào thời gian phản hồi. Vì vậy các hệ thống có giá trị IOPS tốt sẽ xử lý các giao dịch trực tuyến nhanh. Nhưng đến hiện tại, vấn đề trở nên phức tạp hơn. 1 số cơ sở dữ liệu phụ thuộc vào việc truyền dữ liệu tuần tự (throughput), ảnh hưởng thời gian phản hồi IO đơn.
 
 Mặt khác, high throughput góp phần quan trọng, đặc biệt khi nói đến khả năng truyền khối lượng lớn công việc tuần tự như truy vấn các file audio, video khối lượng lớn. Vì vậy, nếu throughput cao sẽ đáp ứng được khối lượng công việc cao hơn (càng nhiều MB/s càng xử lý được nhiều công việc)
+
+# Nguồn
+
+https://insightsblog.violinsystems.com/blog/the-fundamental-characteristics-of-storage
+
+http://rickardnobel.se/storage-performance-iops-latency-throughput/
+
+https://blog.csdn.net/hanchengxi/article/details/19089589
+
+https://en.wikipedia.org/wiki/IOPS
