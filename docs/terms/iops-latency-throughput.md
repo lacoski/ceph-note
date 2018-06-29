@@ -150,7 +150,10 @@ __IOPS trên SSD và HDD__
 Xem thêm: https://en.wikipedia.org/wiki/IOPS
 
 
-
+Các hoạt động IO:
+- Large / small block I/O
+- Continuous / random I/O
+- Sequential / Concurrent I/O
 
 ## App tương tác với Storage
 Các App tương tác với Storage
