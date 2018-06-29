@@ -6,6 +6,12 @@
 ## Kiến trúc triển khai
 ![](https://github.com/lacoski/khoa-luan/raw/master/Ceph/PIC/ceph-lumi-lab-7.png)
 
+## Chuẩn bị
+### Bước 1: Cấu hình hostname trên từng máy
+```
+hostnamectl set-hostname <node name>
+```
+
 ## Phần 1: Cài đặt Ceph
 > Thực hiện trên tất cả các node triển khai Ceph (các tool triển khai ceph hỗ trợ điều này)
 
