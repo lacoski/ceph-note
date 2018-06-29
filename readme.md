@@ -14,13 +14,19 @@
 
 ## Ceph
 ### [Bài viết về Ceph](https://github.com/lacoski/khoa-luan#6-ceph)
+
 ## Tài liệu tham khảo
 ### [1. Tổng quan về Ceph PGs](docs/ceph/ceph-pgs.md)
 ### [2. Yêu cầu khi xây dựng Ceph](docs/ceph/ceph-requirement-note.md)
+
 ## Dựng Ceph thủ công (install ceph manual)
 ### [1. Cài đặt Ceph maunal](docs/ceph/ceph-manual.md)
 ### [2. Quản trị Ceph - Thêm xóa Mon, OSD thủ công](docs/ceph/ceph-admin-mon-osd.md)
 ### [3. Cài đặt ceph radosgw](docs/ceph/ceph-install-rgw.md)
+
+## Quản trị Ceph
+### [1. Quản trị tiến trình Ceph](docs/ceph/manual-service-ceph.md)
+### [2. Quản trị Ceph - Thêm xóa Mon, OSD thủ công](docs/ceph/ceph-admin-mon-osd.md)
 
 ## Bài viết
 ### [1. Độ quan trọng latency](docs/latency.md)
