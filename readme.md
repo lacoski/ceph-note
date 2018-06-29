@@ -22,7 +22,9 @@
 ## Dựng Ceph thủ công (install ceph manual)
 ### [1. Cài đặt Ceph maunal](docs/ceph/ceph-manual.md)
 ### [2. Quản trị Ceph - Thêm xóa Mon, OSD thủ công](docs/ceph/ceph-admin-mon-osd.md)
+### [3. Cài đặt ceph rbd (Rados block device)](docs/ceph/ceph-manual-rbd.md)
 ### [3. Cài đặt ceph radosgw](docs/ceph/ceph-install-rgw.md)
+
 
 ## Quản trị Ceph
 ### [1. Quản trị tiến trình Ceph](docs/ceph/manual-service-ceph.md)
