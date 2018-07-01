@@ -51,7 +51,7 @@ Mặc định Ceph thêm vào các tính năng:
 
 Hủy bỏ các tính năng không hỗ trợ:
 ```
-sudo rbd feature disable disk01 exclusive-lock object-map fast-diff deep-flatten
+sudo rbd feature disable image1 exclusive-lock object-map fast-diff deep-flatten
 ```
 Hủy tính năng mặc định, tự động thêm vào của ceph về RBD node:
 > Thêm vào file `/etc/ceph/ceph.conf`, sau đó đồng bộ file config
