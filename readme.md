@@ -30,6 +30,10 @@
 ### [1. Quản trị tiến trình Ceph](docs/ceph/manual-service-ceph.md)
 ### [2. Quản trị Ceph - Thêm xóa Mon, OSD thủ công](docs/ceph/ceph-admin-mon-osd.md)
 
+## Ceph AIO
+### [1. Cài đặt Ceph jewel AIO](https://github.com/lacoski/khoa-luan/blob/master/Ceph/ceph-AIO-jewel.md)
+### [2. Cài đặt Ceph luminous AIO](docs/ceph/ceph-install-luminous-aio.md)
+
 ## Bài viết
 ### [1. Độ quan trọng latency](docs/latency.md)
 ### [2. Tìm hiểu về các thông số: IOPS, Latency và Throughput](docs/iops-latency-throughput.md)
