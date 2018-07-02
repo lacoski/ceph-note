@@ -289,7 +289,7 @@ sudo chmod 644 /etc/ceph/ceph.client.admin.keyring
 
 Triển khai Ceph MGR nodes
 ```
-ceph-deploy mgr create ceph-admin:ceph-mgr-1
+ceph-deploy mgr create ceph-aio:ceph-mgr-1
 ```
 
 ### Phần 6: Kiểm tra Ceph setup
