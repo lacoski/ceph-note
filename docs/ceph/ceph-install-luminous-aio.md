@@ -215,12 +215,12 @@ Nội dung
 [global]
 fsid = a0a1f71e-3acd-4035-904d-be26171e1e96
 mon_initial_members = ceph-aio
-mon_host = 172.16.4.203
+mon_host = 192.168.2.100
 auth_cluster_required = cephx
 auth_service_required = cephx
 auth_client_required = cephx
 
-public network = 172.16.4.0/24
+public network = 192.168.2.0/24
 cluster network = 10.0.3.0/24
 ```
 
@@ -327,7 +327,7 @@ HEALTH_OK
     "epoch": 29,
     "active_gid": 4118,
     "active_name": "ceph-mgr-1",
-    "active_addr": "172.16.4.203:6806/12549",
+    "active_addr": "192.168.2.100:6806/12549",
     "available": true,
     "standbys": [],
     "modules": [
@@ -360,7 +360,7 @@ ceph mgr module enable dashboard
     "epoch": 33,
     "active_gid": 4123,
     "active_name": "ceph-mgr-1",
-    "active_addr": "172.16.4.203:6806/12549",
+    "active_addr": "192.168.2.100:6806/12549",
     "available": true,
     "standbys": [],
     "modules": [
