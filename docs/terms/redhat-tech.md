@@ -1,4 +1,4 @@
-# INFRASTRUCTURE TOUR RED HAT ENTERPRISE LINUX LAB
+# INFRASTRUCTURE TOUR RED HAT ENTERPRISE LINUX
 ---
 ## 1. Các thách thức của doanh nghiệp
 Thách thức của doanh nghiệp
