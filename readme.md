@@ -41,7 +41,7 @@
 ### [3. Tìm hiểu về các thông số: IOPS, Latency và Throughput - phần 2](docs/iops-latency-throughput-2.md)
 ### [4. Ý nghĩa các thông số: IOPS, Latency và Throughput](docs/terms/iops-latency-throughput.md)
 ### [5. Chuẩn PCI-E](docs/terms/pcie.md)
-
+### [6. Red Hat: INFRASTRUCTURE TOUR RED HAT ENTERPRISE LINUX LAB](docs/terms/redhat-tech.md)
 
 ## Cloud and Storage
 ### [1. Cloud và Virtual Data Storage Networking - Xu hướng và các khía cạnh](docs/idc/chap1.md)
