@@ -84,6 +84,8 @@ Giải pháp tổng hợp, Redhat cung cấp các giải pháp cung cố phiển
 ## 5. Red Hat OpenStack
 (..)
 
+https://www.redhat.com/en/technologies/linux-platforms/openstack-platform
+
 ## 6. Container
 ### Tổng quan
 Container là giải pháp để giải quyết vấn đề làm sao để chuyển giao phần mềm một cách đáng tin cậy (không phát sinh lỗi) giữa các môi trường máy tính khác nhau. Chẳng hạn như giữa máy tính của lập trình viên với máy của tester, giữa môi trường staging (hay còn được gọi là môi trường tiền thực tế) với môi trường thực tế hay thậm trí giữa máy chủ riêng đặt tại trung tâm dữ liệu với máy ảo trên cloud.
