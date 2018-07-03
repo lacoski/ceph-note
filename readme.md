@@ -29,6 +29,7 @@
 ## Quản trị Ceph
 ### [1. Quản trị tiến trình Ceph](docs/ceph/manual-service-ceph.md)
 ### [2. Quản trị Ceph - Thêm xóa Mon, OSD thủ công](docs/ceph/ceph-admin-mon-osd.md)
+### [3. Cập nhật config Ceph](docs/ceph/update-config-ceph.md)
 
 ## Ceph AIO
 ### [1. Cài đặt Ceph jewel AIO](https://github.com/lacoski/khoa-luan/blob/master/Ceph/ceph-AIO-jewel.md)
