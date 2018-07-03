@@ -125,5 +125,25 @@ Về tính an toàn:
 Với đặc tính nhanh gọn của mình, container rất phù hợp với xu hướng phát triển phần mềm hiện đại ngày nay khi mà yếu tố thời gian được đặt lên hàng đầu. Ngoài ra, container sử dụng công nghệ triển khai cũng như định dạng đóng gói thống nhất (unified), chỉ cần cài đặt Container Engine vào các máy cần tạo/dùng container và người dùng hoàn toàn yên tâm có thể sử dụng được các container được đóng gói một cách dễ dàng. Và còn một điểm cũng rất quan trọng để hút được sự quan tâm đó là container được sự hỗ trợ rất lớn từ cồng đồng công nghệ như Ubuntu, Redis, WordPress, …
 
 
+## 7. Ansiable cho Redhat
+Ansiable cho phép
+-	Hỗ trợ triền khai ứng dụng nhanh
+-	Hỗ trợ triển khai dạng container theo công nghệ Redhat
 
+
+![](images/redhat-tech-10.png)
+
+![](images/redhat-tech-11.png)
+
+![](images/redhat-tech-12.png)
+
+## Nguồn
+
+https://www.redhat.com/en/topics/containers/whats-a-linux-container
+
+https://www.redhat.com/en/topics/containers
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/pdf/getting_started_with_cockpit/Red_Hat_Enterprise_Linux-7-Getting_Started_with_Cockpit-en-US.pdf
+
+http://blog.lionpham.com/2016/09/02/docker-containers-azure-container-service-p1/
 
