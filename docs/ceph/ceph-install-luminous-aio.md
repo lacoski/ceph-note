@@ -19,11 +19,15 @@ Network     ens33: 1 replicate data
 ## Cài đặt
 ### Phần 1 - Cấu hình chuẩn bị trên node
 #### Bước 1: Tạo Ceph User
-Tạo Ceph user 'cephuser' trên tất các các nodes.
+Tạo Ceph user 'cephuser' trên node.
 ```
 useradd -d /home/cephuser -m cephuser
 passwd cephuser
 ```
+Lưu ý:
+- User này sẽ được sử dụng bởi `ceph-deploy`. Tức, `ceph-deploy` sẽ sử dụng user này để triển khai các cấu hình của Ceph
+- Nếu bỏ qua user này `ceph-deploy` sẽ vẫn chạy, nó sẽ tự động sử dụng biến user môi trường.
+
 Cấp quyền root cho user vừa tạo
 ```
 echo "cephuser ALL = (root) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/cephuser
