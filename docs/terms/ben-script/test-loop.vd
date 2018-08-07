@@ -1,0 +1,21 @@
+data_errors=50000000
+report_run_totals=yes
+
+hd=default,user=root,shell=vdbench
+sd=default,openflags=o_direct,range=(1,100)
+
+# Dinh nghia
+sd=sd1,lun=/dev/sdb
+
+# bai test
+wd=read_write_random,sd=sd*,seekpct=random
+wd=read_write_seq,sd=sd*,seekpct=seq
+
+# chay test
+rd=result_random_read,wd=read_write_random,iorate=max,forxfersize=(512,1k,2k,4k,8k),forrhpct=100,elapsed=30,interval=5,forthreads=(2,4,8,16,32)
+rd=result_random_mix,wd=read_write_random,iorate=max,forxfersize=(512,1k,2k,4k,8k),forrhpct=70,elapsed=30,interval=5,forthreads=(2,4,8,16,32)
+rd=result_random_write,wd=read_write_random,iorate=max,forxfersize=(512,1k,2k,4k,8k),forrhpct=0,elapsed=30,interval=5,forthreads=(2,4,8,16,32)
+
+rd=result_seq_read,wd=read_write_seq,iorate=max,forxfersize=(512,1k,2k,4k,8k),forrhpct=100,elapsed=30,interval=5,forthreads=(2,4,8,16,32)
+rd=result_seq_mix,wd=read_write_seq,iorate=max,forxfersize=(512,1k,2k,4k,8k),forrhpct=70,elapsed=30,interval=5,forthreads=(2,4,8,16,32)
+rd=result_seq_write,wd=read_write_seq,iorate=max,forxfersize=(512,1k,2k,4k,8k),forrhpct=0,elapsed=30,interval=5,forthreads=(2,4,8,16,32)

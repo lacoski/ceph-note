@@ -1,0 +1,16 @@
+data_errors=50000000
+report_run_totals=yes
+
+hd=default,user=root,shell=vdbench
+sd=default,openflags=o_direct,range=(1,100)
+# Dinh nghia o
+sd=sd1,lun=/dev/sdh
+
+# bai test
+
+# read, write random 4k, 8k 100%
+wd=read_random_4k,sd=sd*,forrhpct=(10-100,10),seekpct=random
+
+# chay test
+rd=result_read_random_4k,wd=read_random_4k,iorate=max,forxfersize=(4k,8k,12k,16k),elapsed=10,interval=5,forthreads=16
+
