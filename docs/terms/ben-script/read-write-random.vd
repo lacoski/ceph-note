@@ -1,0 +1,19 @@
+data_errors=50000000
+report_run_totals=yes
+
+hd=default,user=root,shell=vdbench
+sd=default,size=20g,range=(1,100)
+
+# Khai bao Disk
+sd=sd1,lun=/dev/sdh
+openflags=o_direct
+
+# Dinh nghia loai test random va seq
+wd=read_write_random,sd=sd*,seekpct=random,skew=100
+
+
+# Test
+## Random case
+rd=result_random_read,wd=read_write_random,iorate=curve,curve=(50,90),forxfersize=(4k,8k),forrhpct=100,elapsed=20,interval=5,forthreads=512
+rd=result_random_write,wd=read_write_random,iorate=curve,curve=(50,90),forxfersize=(4k,8k),forrhpct=0,elapsed=20,interval=5,forthreads=512
+
