@@ -35,10 +35,10 @@ do
     # read, write seq
     for disk in "${DISK_CHECK[@]}"
     do 
-        fio --name=read_seq --readwrite=read --size=5G --filename=${disk} --output=${RESULT_DIR}/read_seq_`hostname`_${loop}.txt
+        fio --name=read_seq --readwrite=read --size=${SIZE} --filename=${disk} --output=${RESULT_DIR}/read_seq_`hostname`_${loop}.txt
         rm -rf testfile
 
-        fio --name=write_seq --readwrite=write --size=5G --filename=${disk} --output=${RESULT_DIR}/write_seq_`hostname`_${loop}.txt
+        fio --name=write_seq --readwrite=write --size=${SIZE} --filename=${disk} --output=${RESULT_DIR}/write_seq_`hostname`_${loop}.txt
         rm -rf testfile
     done
 done
