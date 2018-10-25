@@ -1,4 +1,4 @@
-# Cài đặt Ceph All in one Jewel - CentOS 7
+# Cài đặt Ceph All in one Luminous - CentOS 7
 ---
 ## Chuẩn bị
 
