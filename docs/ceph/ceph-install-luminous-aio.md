@@ -120,10 +120,6 @@ ssh-copy-id cephaio
 
 #### Bước 1: Cấu hình Ceph repo
 ```
-vi /etc/yum.repos.d/ceph.repo
-```
-Nội dung
-```
 echo '
 [Ceph]
 name=Ceph packages for $basearch
