@@ -11,13 +11,32 @@ RAM         4 GB
 Disk        sba: os
             sbd,sdc,sde: 3 disk osd
 
-Network     ens33: 1 replicate data
-            ens34: 1 access ceph
+Network     ens33: 1 replicate data (192.168.2.100)
+            ens34: 1 access ceph (10.0.3.100)
 ```
 
+### Cấu hình card mạng
+```
+# Ceph admin
+echo "Setup IP ens33"
+nmcli c modify ens33 ipv4.addresses 192.168.2.100/24
+nmcli c modify ens33 ipv4.gateway 192.168.2.2
+nmcli c modify ens33 ipv4.dns 8.8.8.8
+nmcli c modify ens33 ipv4.method manual
+nmcli con mod ens33 connection.autoconnect yes
+
+echo "Setup IP ens34"
+nmcli c modify ens34 ipv4.addresses 10.0.3.100/24
+nmcli c modify ens34 ipv4.method manual
+nmcli con mod ens34 connection.autoconnect yes
+
+systemctl stop firewalld
+systemctl disable firewalld
+```
 
 ## Cài đặt
 ### Phần 1 - Cấu hình chuẩn bị trên node
+> Sử dụng quyền `root`
 #### Bước 1: Tạo Ceph User
 Tạo Ceph user 'cephuser' trên node.
 ```
@@ -58,92 +77,54 @@ sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 
 #### Bước 5: Cấu hình Host File
 ```
-vim /etc/hosts
-```
-Nội dung
-```
-# content vim
-192.168.2.100 ceph-aio
+echo '
+192.168.2.100 cephaio' >> /etc/hosts
 ```
 > Ping thử tới host, kiếm tra Network
 
+#### Bước 6: Khởi động lại node
+```
+reboot
+```
+
 ### Phần 2: Cấu hình SSH Server
-> __Cấu hình trên ceph-aio node__
+> Truy cập cephaio với quyền `root`
 
-#### Bước 1: Truy cập ceph-aio
+#### Bước 1: Tạo ssh-key
 ```
-ssh root@ceph-aio
+echo -e "\n" | ssh-keygen -t rsa -N ""
 ```
 
-#### Bước 2: Tạo ssh-key
+#### Bước 2: Cấu hình ssh file
 ```
-ssh-keygen
-```
-> Để khoảng trắng trên các lựa chọn
-
-
-#### Bước 3: Cấu hình ssh file
-```
-vim ~/.ssh/config
-```
-Nội dung
-```
-# content vim
-
-Host ceph-aio
-        Hostname ceph-aio
-        User cephuser
+echo '
+Host cephaio
+        Hostname cephaio
+        User cephuser' > ~/.ssh/config
 ```
 Thay đổi quyền trên file
 ```
 chmod 644 ~/.ssh/config
 ```
 
-Chuyển ssh-key tới known_hosts
+Thiết lập keypair
 ```
-ssh-keyscan ceph-aio >> ~/.ssh/known_hosts
-ssh-copy-id ceph-aio
-```
-
-> Yều cầu nhập passwd trong lần đầu tiền truy cập
-
-### Phần 3: Cấu hình Firewalld
-#### Tùy chọn 1: Cấu hình dựa theo lab
-Bỏ qua cấu hình firewall
-```
-systemctl stop firewalld
-systemctl disable firewalld
+ssh-keyscan cephaio >> ~/.ssh/known_hosts
+ssh-copy-id cephaio
 ```
 
-#### Tùy chọn 2: Cấu hình firewalld (Chưa kiểm chứng)
-##### Xem thêm
-[Cài đặt Ceph trên CentOS 7](ceph-install-lab.md)
+> Yều cầu nhập password lần đầu tiền truy cập
 
-### Phần 4: Thiết lập Ceph Cluster
-> Tại phân này, ta sẽ cài đặt tât cả các thành phần ceph lên 1 node duy nhất.
+### Phần 3: Thiết lập Ceph Cluster
+> Sử dụng quyền `root`
 
-Bổ sung các gói
-```
-yum install python-setuptools -y
-yum -y install epel-release
-yum install python-virtualenv -y
-
-# update os tránh lỗi
-yum update -y
-```
-
-
-#### Bước 1: Truy cập ceph-aio node
-```
-ssh root@<ceph-aio>
-```
-
-#### Bước 2: Cấu hình Ceph repo
+#### Bước 1: Cấu hình Ceph repo
 ```
 vi /etc/yum.repos.d/ceph.repo
 ```
 Nội dung
 ```
+echo '
 [Ceph]
 name=Ceph packages for $basearch
 baseurl=http://download.ceph.com/rpm-luminous/el7/$basearch
@@ -169,101 +150,70 @@ enabled=1
 gpgcheck=1
 type=rpm-md
 gpgkey=https://download.ceph.com/keys/release.asc
-priority=1
+priority=1' > /etc/yum.repos.d/ceph.repo
+
+yum update -y 
 ```
 
-Update repo cập nhất repo ceph mới
+#### Bước 2: Cài đặt ceph-deploy
 ```
-yum update -y
-```
-
-
-#### Bước 3: Cài đặt ceph-deploy tool từ git
-Cài git
-```
-yum install git -y
-```
-Download Ceph deploy repo
-```
-git clone https://github.com/ceph/ceph-deploy.git
-```
-Build `ceph-deploy` từ source
-```
-cd ceph-deploy/
-./bootstrap
+yum install ceph-deploy -y
+yum update ceph-deploy -y 
 ```
 
-Tạo câu lệnh nhanh `ceph-deploy`
-```
-cp virtualenv/bin/ceph-deploy /usr/bin/
-```
-
-#### Bước 4: Tạo mới Ceph Cluster config
+#### Bước 3: Tạo mới Ceph Cluster
 Tạo cluster directory
 ```
 mkdir cluster
 cd cluster/
 ```
 
-Tạo mới cluster config với 'ceph-deploy' command
+Tạo mới cấu hình ceph, thiết lập node mon
 ```
-ceph-deploy new ceph-aio
+ceph-deploy new cephaio
 ```
 
 Cấu hình ceph.conf
 ```
-vim ceph.conf
-```
-Nội dung
-```
-[global]
-fsid = a0a1f71e-3acd-4035-904d-be26171e1e96
-mon_initial_members = ceph-aio
-mon_host = 192.168.2.100
-auth_cluster_required = cephx
-auth_service_required = cephx
-auth_client_required = cephx
-
-public network = 192.168.2.0/24
-cluster network = 10.0.3.0/24
+echo "public network = 192.168.2.0/24" >> ~/cluster/ceph.conf
+echo "cluster network = 10.0.3.0/24" >> ~/cluster/ceph.conf
 ```
 
-#### Bước 5: Cài đặt Ceph trên Ceph AIO
-Cài đặt Ceph trên Ceph AIO.
+#### Bước 4: Cài đặt Ceph
 ```
-ceph-deploy install --release luminous ceph-aio
+ceph-deploy install --release luminous cephaio
 ```
 
-Thiết lập ceph mon
+Khởi tạo tiến trình mon
 ```
 ceph-deploy mon create-initial
 ```
 
-#### Bước 6: Thiết lập OSD
-> Sau khi Ceph được cài đặt tới các node, ta cần thêm tiến trình OSD tới cluster.
+#### Bước 5: Thiết lập OSD
+> Khởi tạo tiến trình OSD
 
 Liệt kê OSD
 ```
-ceph-deploy disk list ceph-aio
+ceph-deploy disk list cephaio
 ```
 
 Xóa partition tables trên tất cả node với zap option
 ```
-ceph-deploy disk zap ceph-aio /dev/sdb
-ceph-deploy disk zap ceph-aio /dev/sdc
-ceph-deploy disk zap ceph-aio /dev/sdd
+ceph-deploy disk zap cephaio /dev/sdb
+ceph-deploy disk zap cephaio /dev/sdc
+ceph-deploy disk zap cephaio /dev/sdd
 ```
 
 Tạo mới OSD
 ```
-ceph-deploy osd create ceph-aio --data /dev/sdb
-ceph-deploy osd create ceph-aio --data /dev/sdc
-ceph-deploy osd create ceph-aio --data /dev/sdd
+ceph-deploy osd create cephaio --data /dev/sdb
+ceph-deploy osd create cephaio --data /dev/sdc
+ceph-deploy osd create cephaio --data /dev/sdd
 ```
 
 Kiểm tra tại OSD node
 ```
-[root@ceph-aio cluster]# lsblk
+[root@cephaio cluster]# lsblk
 NAME                                                                                                  MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
 fd0                                                                                                     2:0    1    4K  0 disk 
 sda                                                                                                     8:0    0   50G  0 disk 
@@ -281,9 +231,9 @@ sr0                                                                             
 
 ```
 
-Thiết lập management-key trên node
+Khởi tạo quyền admin ceph cho node `cephaio` (Để node có quyền quản trị Ceph)
 ```
-ceph-deploy admin ceph-aio
+ceph-deploy admin cephaio
 ```
 
 Thiết lập quyền truy cập file
@@ -291,27 +241,27 @@ Thiết lập quyền truy cập file
 sudo chmod 644 /etc/ceph/ceph.client.admin.keyring
 ```
 
-Triển khai Ceph MGR nodes
+Khởi tạo tiến trình ceph mgr (Không khởi tạo có thể gây lỗi ceph)
 ```
-ceph-deploy mgr create ceph-aio:ceph-mgr-1
+ceph-deploy mgr create cephaio:ceph-mgr-1
 ```
 
-### Phần 6: Kiểm tra Ceph setup
+### Phần 4: Kiểm tra trạng thái Ceph
 #### Kiểm tra cluster health
 ```
-[root@ceph-aio cluster]# sudo ceph health
+[root@cephaio cluster]# sudo ceph health
 HEALTH_OK
 ```
 
 #### Kiểm tra cluster status
 ```
-[root@ceph-aio cluster]# sudo ceph -s
+[root@cephaio cluster]# sudo ceph -s
   cluster:
     id:     a0a1f71e-3acd-4035-904d-be26171e1e96
     health: HEALTH_OK
  
   services:
-    mon: 1 daemons, quorum ceph-aio
+    mon: 1 daemons, quorum cephaio
     mgr: ceph-mgr-1(active)
     osd: 3 osds: 3 up, 3 in
  
@@ -323,10 +273,33 @@ HEALTH_OK
 
 ```
 
-### Phần 7: Active Ceph dashboard
-#### Liệt kê các dashbroard hiện có
+### Phần 5: Chỉnh sửa Crush map
+> Truy cập với quyền `root`
+Lưu ý:
+- Khi cài đặt Ceph All In One, cần phải bổ sung cấu hình sau để lab các tính năng khác
+
+Truy cập Cluster config, lấy crush map hiện tại
 ```
-[root@ceph-aio cluster]# ceph mgr dump
+cd cluster/
+ceph osd getcrushmap -o map.bin
+crushtool -d map.bin -o map.txt
+```
+
+Chỉnh sửa crush map
+```
+sed -i 's/step chooseleaf firstn 0 type host/step chooseleaf firstn 0 type osd/g' ~/cluster/map.txt
+```
+
+```
+crushtool -c map.txt -o map-new.bin
+ceph osd setcrushmap -i map-new.bin
+```
+
+### Phần 6: Khởi tạo Ceph Dashboard
+> Sử dụng cho mục đính giám sát Ceph
+#### Liệt kê các module hiện có
+```
+[root@cephaio cluster]# ceph mgr dump
 {
     "epoch": 29,
     "active_gid": 4118,
@@ -353,13 +326,13 @@ HEALTH_OK
     "services": {}
 }
 ```
-#### Kích hoạt module 
+#### Kích hoạt module dashboard
 ```
 ceph mgr module enable dashboard
 ```
 #### Kiểm tra lại
 ```
-[root@ceph-aio cluster]# ceph mgr dump
+[root@cephaio cluster]# ceph mgr dump
 {
     "epoch": 33,
     "active_gid": 4123,
@@ -385,7 +358,7 @@ ceph mgr module enable dashboard
         "zabbix"
     ],
     "services": {
-        "dashboard": "http://ceph-aio:7000/"
+        "dashboard": "http://cephaio:7000/"
     }
 }
 ```
