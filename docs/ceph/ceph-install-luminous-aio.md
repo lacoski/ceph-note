@@ -32,6 +32,9 @@ nmcli con mod ens34 connection.autoconnect yes
 
 systemctl stop firewalld
 systemctl disable firewalld
+
+yum install update -y
+yum install python-setuptools -y
 ```
 
 ## Cài đặt
