@@ -1,0 +1,49 @@
+# egrep -v "^$|^#" group_vars/all.yml
+---
+    dummy:
+    ceph_release_num: 15
+    fetch_directory: /etc/ceph
+    cluster: ceph2020
+    configure_firewall: false
+    debian_package_dependencies: []
+    ntp_service_enabled: false
+    ceph_repository_type: cdn
+    ceph_origin: repository
+    ceph_repository: custom
+    ceph_custom_key: http://IP:PORT/repository/Ceph_Keys/keys/release.asc
+    ceph_custom_repo: http://IP:PORT/repository/Ceph_Keys/repos/ceph-octopus.repo
+    monitor_interface: bond0
+    public_network: x.x.x.x/24
+    cluster_network: y.y.y.y/24
+    dashboard_enabled: false
+    
+    # egrep -v "^$|^#" group_vars/osds.yml
+    ---
+    dummy:
+    devices:
+      - /dev/sda
+      - /dev/sdb
+      - /dev/sdc
+      - /dev/sdd
+    dedicated_devices:
+      - /dev/sde
+      - /dev/sdf
+    bluestore_wal_devices:
+      - /dev/nvme0n1
+      - /dev/nvme1n1
+    crush_rule_config: true
+    crush_rule_hdd:
+      name: generic_hdd
+      root: default
+      type: host
+      class: hdd
+      default: false
+    crush_rule_ssd:
+      name: generic_ssd
+      root: default
+      type: host
+      class: ssd
+      default: false
+    crush_rules:
+      - "{{ crush_rule_hdd }}"
+      - "{{ crush_rule_ssd }}"
