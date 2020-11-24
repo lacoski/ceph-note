@@ -1,9 +1,5 @@
 # Kiến thức về Data center
 ---
-## Thuật ngữ
-### [1. Phân biệt SLA, SLO](docs/terms/sla-slo.md)
-### [2. Quality of service (QoS)](docs/terms/QoS.md)
-### [3. Khái niểm U trong data center](docs/terms/u-mean-datacenter.md)
 
 ## Vấn đề cơ bản
 ### [1. File system](https://github.com/lacoski/khoa-luan#1-file-system)
@@ -25,7 +21,6 @@
 ### [3. Cài đặt ceph rbd (Ceph Block Device)](docs/ceph/ceph-manual-rbd.md)
 ### [4. Cài đặt ceph radosgw (RADOS Gateway)](docs/ceph/ceph-install-rgw.md)
 
-
 ## Quản trị Ceph
 ### [1. Quản trị tiến trình Ceph](docs/ceph/manual-service-ceph.md)
 ### [2. Quản trị Ceph - Thêm xóa Mon, OSD thủ công](docs/ceph/ceph-admin-mon-osd.md)
@@ -34,6 +29,14 @@
 ## Ceph AIO
 ### [1. Cài đặt Ceph jewel AIO](https://github.com/lacoski/khoa-luan/blob/master/Ceph/ceph-AIO-jewel.md)
 ### [2. Cài đặt Ceph luminous AIO](docs/ceph/ceph-install-luminous-aio.md)
+
+## Ceph Ansible
+### [1. Hướng dẫn triển khai Ceph Local Repo bản Nautilus](/docs/ceph-ansible/ceph-local-repo-nautilus.md)
+
+## Thuật ngữ
+### [1. Phân biệt SLA, SLO](docs/terms/sla-slo.md)
+### [2. Quality of service (QoS)](docs/terms/QoS.md)
+### [3. Khái niểm U trong data center](docs/terms/u-mean-datacenter.md)
 
 ## Bài viết
 ### [1. Độ quan trọng latency](docs/latency.md)
