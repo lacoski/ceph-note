@@ -228,7 +228,7 @@ pip3 install virtualenv
 Cài đặt Ceph Ansible từ Git
 ```
 git clone https://github.com/ceph/ceph-ansible.git
-cd ceph-ansible 
+cd ceph-ansible
 git checkout stable-4.0
 cd ..
 mv ceph-ansible /usr/share/ceph-ansible
