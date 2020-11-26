@@ -25,21 +25,18 @@ vi /etc/yum.repos.d/CentOS-Base.repo
 
 [base]
 name=CentOS-$releasever - Base
-#mirrorlist=http://10.10.30.56/?release=$releasever&arch=$basearch&repo=os&infra=$infra
-baseurl=http://dlp.srv.world/repos/centos/$releasever/os/$basearch/
+baseurl=http://10.10.30.56/repos/centos/$releasever/os/$basearch/
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 
 [updates]
 name=CentOS-$releasever - Updates
-#mirrorlist=http://10.10.30.56/?release=$releasever&arch=$basearch&repo=updates&infra=$infra
-baseurl=http://dlp.srv.world/repos/centos/$releasever/updates/$basearch/
+baseurl=http://10.10.30.56/repos/centos/$releasever/updates/$basearch/
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 
 [extras]
 name=CentOS-$releasever - Extras
-#mirrorlist=http://10.10.30.56/?release=$releasever&arch=$basearch&repo=extras&infra=$infra
-baseurl=http://dlp.srv.world/repos/centos/$releasever/extras/$basearch/
+baseurl=http://10.10.30.56/repos/centos/$releasever/extras/$basearch/
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7

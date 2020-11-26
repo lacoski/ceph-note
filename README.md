@@ -33,6 +33,8 @@
 ## Ceph Ansible
 ### [1. Hướng dẫn triển khai Ceph Local Repo bản Nautilus](/docs/ceph-ansible/ceph-local-repo-nautilus.md)
 
+## [Ceph Nautilus + Ceph Ansible (Offline)](/docs/ceph-ansible-nautilus-offline-c7/README.md)
+
 ## Thuật ngữ
 ### [1. Phân biệt SLA, SLO](docs/terms/sla-slo.md)
 ### [2. Quality of service (QoS)](docs/terms/QoS.md)

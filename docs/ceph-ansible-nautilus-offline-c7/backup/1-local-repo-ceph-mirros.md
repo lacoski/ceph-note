@@ -1,8 +1,8 @@
-# Hướng dẫn triển khai Local Repo cho Ceph
+# Hướng dẫn triển khai Local Repo Mirros CentOS
 
 ## Lưu ý
 
-- Local Repo sẽ chứa toàn bộ các gói cơ bản của CentOS 7, Ceph
+- Local Repo sẽ chứa toàn bộ các gói cơ bản của CentOS 7
 
 ## Bước 1: Chuẩn bị môi trường
 ```
