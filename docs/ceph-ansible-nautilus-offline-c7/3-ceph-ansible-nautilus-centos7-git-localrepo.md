@@ -488,23 +488,6 @@ ceph version 14.2.14 (7e94c5afc28f3eaf36151ad1e1457de5f16c4fdf) nautilus (stable
 
 Tới đây đã hoàn thành tài liệu cài Ceph Nautilus bằng Ceph Ansible
 
-Kiểm tra
-```
-(env) [root@ceph01 ceph-ansible]# ceph mgr services
-
-{
-    "dashboard": "http://ceph01:8443/",
-    "prometheus": "http://ceph01:9283/"
-}
-```
-
-Kiểm tra Ceph Dashboard:
-- http://10.10.31.57:8443/#/login?returnUrl=%2Fdashboard - admin / Cloud3652020
-
-Login Grafana:
-- http://10.10.31.58:3000/login?redirect=%2F - admin / Cloud3652020
-
-
 ## Nguồn
 
 https://docs.ceph.com/projects/ceph-ansible/en/stable-4.0.25/installation/methods.html#custom-repository
