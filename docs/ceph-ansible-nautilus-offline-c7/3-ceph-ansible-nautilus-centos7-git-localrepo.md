@@ -468,22 +468,21 @@ Kiểm tra ceph
 (env) [root@ceph01 ceph-ansible]# ceph -v
 ceph version 14.2.14 (7e94c5afc28f3eaf36151ad1e1457de5f16c4fdf) nautilus (stable)
 
-
 (env) [root@ceph01 ceph-ansible]# ceph -s
   cluster:
-    id:     97179f61-91cf-4468-8caf-b4adbd37ba02
+    id:     f7da7943-d8f1-4528-9c40-ad6fbfd8aad6
     health: HEALTH_OK
  
   services:
-    mon: 3 daemons, quorum ceph01,ceph02,ceph03 (age 19m)
-    mgr: ceph01(active, since 10m)
-    osd: 9 osds: 9 up (since 15m), 9 in (since 15m)
+    mon: 3 daemons, quorum ceph01,ceph02,ceph03 (age 6m)
+    mgr: ceph01(active, since 5m)
+    osd: 6 osds: 6 up (since 4m), 6 in (since 4m)
  
   data:
     pools:   0 pools, 0 pgs
     objects: 0 objects, 0 B
-    usage:   9.0 GiB used, 441 GiB / 450 GiB avail
-    pgs:      
+    usage:   6.0 GiB used, 114 GiB / 120 GiB avail
+    pgs:     
 ```
 
 Tới đây đã hoàn thành tài liệu cài Ceph Nautilus bằng Ceph Ansible
