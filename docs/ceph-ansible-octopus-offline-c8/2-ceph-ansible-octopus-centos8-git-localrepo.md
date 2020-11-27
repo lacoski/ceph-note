@@ -66,9 +66,6 @@ mv /etc/yum.repos.d /etc/yum.repos.d.bak
 
 Cấu hình Repo
 ```
-yum clean all
-mv /etc/yum.repos.d /etc/yum.repos.d.bak
-
 mkdir -p /etc/yum.repos.d
 
 cat <<EOF> /etc/yum.repos.d/CentOS-LocalRepo.repo
