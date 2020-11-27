@@ -6,7 +6,7 @@
 
 [Hướng dẫn Backup Ceph Ansible Octopus (Cài từ Git)](/docs/ceph-ansible-octopus-offline-c8/0-backup-ceph-ansible-git.md)
 
-### Bước 2: Triển khai Local Repo CentOS 7 (Base + EPEL + Ceph Octopus)
+### Bước 2: Triển khai Local Repo CentOS 8 (Base + EPEL + Ceph Octopus)
 
 [Hướng dẫn triển khai Local Repo Mirros CentOS 8](/docs/ceph-ansible-octopus-offline-c8/1-local-repo-centos8-mirros.md)
 
