@@ -52,3 +52,7 @@ see if encrypted partitions are present ----------------------------------------
 ```
 
 Tới đây đã hoàn thành gỡ Ceph bằng Ceph Ansible
+
+## Nguồn
+
+https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/4/html/installation_guide/purging-storage-clusters-deployed-by-ansible-install

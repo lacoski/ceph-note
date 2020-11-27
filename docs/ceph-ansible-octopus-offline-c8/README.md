@@ -12,4 +12,8 @@
 
 ## Phần 2: Triển khai Ceph với Ceph Ansible Offline
 
+### Triển khai Ceph Octopus AIO bằng Ceph Ansible (CentOS 8)
 [Hướng dẫn cài đặt Ceph Octopus AIO bằng Ceph Ansible (CentOS 8)](/docs/ceph-ansible-octopus-offline-c8/2-ceph-ansible-octopus-centos8-git-localrepo.md)
+
+
+### Triển khai Ceph Octopus 3 Node bằng Ceph Ansible (CentOS 8)
