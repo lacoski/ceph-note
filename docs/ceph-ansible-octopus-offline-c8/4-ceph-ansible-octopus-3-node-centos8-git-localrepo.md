@@ -1,4 +1,4 @@
-# Hướng dẫn cài đặt Ceph Octopus AIO - Offline - CentOS 8 - Ceph Ansible - Git
+# Hướng dẫn cài đặt Ceph Octopus 3 Node - Offline - CentOS 8 - Ceph Ansible - Git
 
 ## Phần 1: Chuẩn bị
 Network:
@@ -8,30 +8,100 @@ Network:
 
 3 Disk:
 - vda: sử dụng để cài OS
-- vdb,vdc,vdd: sử dụng làm OSD (nơi chứa dữ liệu)
+- vdb,vdc: sử dụng làm OSD (nơi chứa dữ liệu)
 
 Lưu ý:
 - Thực hiện cài đặt trên VM CentOS 8 version 8.2.2004
 
-### CephAIO
+## Phần 1: Chuẩn bị
+Network:
+- vlan MNGT: eth0: 10.10.30.0/24
+- vlan CephCOM: eth1: 10.10.31.0/24
+- vlan CephREP: eth2: 10.10.32.0/24
+
+3 Disk:
+- vda: sử dụng để cài OS
+- vdb,vdc: sử dụng làm OSD (nơi chứa dữ liệu)
+
+### Ceph01
 
 ```
-hostnamectl set-hostname cephaio
+hostnamectl set-hostname ceph01
 
 echo "Setup IP eth0"
-nmcli c modify eth0 ipv4.addresses 10.10.30.53/24
+nmcli c modify eth0 ipv4.addresses 10.10.30.57/24
 nmcli c modify eth0 ipv4.gateway 10.10.30.1
 nmcli c modify eth0 ipv4.dns 8.8.8.8
 nmcli c modify eth0 ipv4.method manual
 nmcli con mod eth0 connection.autoconnect yes
 
 echo "Setup IP eth1"
-nmcli c modify eth1 ipv4.addresses 10.10.31.53/24
+nmcli c modify eth1 ipv4.addresses 10.10.31.57/24
 nmcli c modify eth1 ipv4.method manual
 nmcli con mod eth1 connection.autoconnect yes
 
 echo "Setup IP eth2"
-nmcli c modify eth2 ipv4.addresses 10.10.32.53/24
+nmcli c modify eth2 ipv4.addresses 10.10.32.57/24
+nmcli c modify eth2 ipv4.method manual
+nmcli con mod eth2 connection.autoconnect yes
+
+sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+systemctl stop firewalld
+systemctl disable firewalld
+
+init 6
+```
+
+### Ceph02
+
+```
+hostnamectl set-hostname ceph02
+
+echo "Setup IP eth0"
+nmcli c modify eth0 ipv4.addresses 10.10.30.58/24
+nmcli c modify eth0 ipv4.gateway 10.10.30.1
+nmcli c modify eth0 ipv4.dns 8.8.8.8
+nmcli c modify eth0 ipv4.method manual
+nmcli con mod eth0 connection.autoconnect yes
+
+echo "Setup IP eth1"
+nmcli c modify eth1 ipv4.addresses 10.10.31.58/24
+nmcli c modify eth1 ipv4.method manual
+nmcli con mod eth1 connection.autoconnect yes
+
+echo "Setup IP eth2"
+nmcli c modify eth2 ipv4.addresses 10.10.32.58/24
+nmcli c modify eth2 ipv4.method manual
+nmcli con mod eth2 connection.autoconnect yes
+
+sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+systemctl stop firewalld
+systemctl disable firewalld
+
+init 6
+```
+
+### Ceph03
+
+```
+hostnamectl set-hostname ceph03
+
+echo "Setup IP eth0"
+nmcli c modify eth0 ipv4.addresses 10.10.30.59/24
+nmcli c modify eth0 ipv4.gateway 10.10.30.1
+nmcli c modify eth0 ipv4.dns 8.8.8.8
+nmcli c modify eth0 ipv4.method manual
+nmcli con mod eth0 connection.autoconnect yes
+
+echo "Setup IP eth1"
+nmcli c modify eth1 ipv4.addresses 10.10.31.59/24
+nmcli c modify eth1 ipv4.method manual
+nmcli con mod eth1 connection.autoconnect yes
+
+echo "Setup IP eth2"
+nmcli c modify eth2 ipv4.addresses 10.10.32.59/24
 nmcli c modify eth2 ipv4.method manual
 nmcli con mod eth2 connection.autoconnect yes
 
@@ -227,7 +297,7 @@ Lưu ý:
 
 Kết quả
 ```
-[root@cephaio backup-ceph-ansible-octopus]# tree
+[root@ceph01 backup-ceph-ansible-octopus]# tree
 .
 ├── 01-ceph-ansible
 │   └── stable-5.0.zip
@@ -265,12 +335,20 @@ cd
 ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
 
 cat <<EOF > ~/.ssh/config 
-Host 10.10.30.53
-   Hostname 10.10.30.53
+Host 10.10.30.57
+   Hostname 10.10.30.57
+   User cephuser
+Host 10.10.30.58
+   Hostname 10.10.30.58
+   User cephuser
+Host 10.10.30.59
+   Hostname 10.10.30.59
    User cephuser
 EOF
 
-ssh-copy-id 10.10.30.53
+ssh-copy-id 10.10.30.57
+ssh-copy-id 10.10.30.58
+ssh-copy-id 10.10.30.59
 ```
 
 Cài đặt gói python3 và virtualenv
@@ -300,13 +378,17 @@ Cấu hình file inventory
 ```
 cat <<EOF > /usr/share/ceph-ansible/inventory_hosts
 [mons]
-10.10.30.53
+10.10.30.57
+10.10.30.58
+10.10.30.59
 
 [osds]
-10.10.30.53
+10.10.30.57
+10.10.30.58
+10.10.30.59
 
 [mgrs]
-10.10.30.53
+10.10.30.57
 EOF
 ```
 
@@ -373,7 +455,6 @@ osd_objectstore: bluestore
 devices:
   - /dev/vdb
   - /dev/vdc
-  - /dev/vdd
 EOF
 ```
 
@@ -417,11 +498,25 @@ ansible -m ping -i inventory_hosts all
 
 Kết quả
 ```
-(env) [root@cephaio ceph-ansible]# ansible -m ping -i inventory_hosts all
+(env) [root@ceph01 ceph-ansible]# ansible -m ping -i inventory_hosts all
 
 [WARNING]: log file at /root/ansible/ansible.log is not writeable and we cannot create it, aborting
 
-10.10.30.53 | SUCCESS => {
+10.10.30.59 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/libexec/platform-python"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+10.10.30.57 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/libexec/platform-python"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+10.10.30.58 | SUCCESS => {
     "ansible_facts": {
         "discovered_interpreter_python": "/usr/libexec/platform-python"
     },
@@ -453,52 +548,7 @@ Kiểm tra ceph
 ceph version 15.2.6 (cb8c61a60551b72614257d632a574d420064c17a) octopus (stable)
 
 (env) [root@cephaio ceph-ansible]# ceph -s
-  cluster:
-    id:     5bb8d5b1-40be-49bc-8494-5006e7f76a60
-    health: HEALTH_WARN
-            Degraded data redundancy: 1 pg undersized
- 
-  services:
-    mon: 1 daemons, quorum cephaio (age 3m)
-    mgr: cephaio(active, since 2m)
-    osd: 3 osds: 3 up (since 97s), 3 in (since 97s)
- 
-  data:
-    pools:   1 pools, 1 pgs
-    objects: 0 objects, 0 B
-    usage:   3.0 GiB used, 57 GiB / 60 GiB avail
-    pgs:     1 active+undersized 
 ```
-
-Chỉnh lại crushmap (Trong trường hợp cài ALL IN ONE)
-```
-cd /usr/share/ceph-ansible
-sudo ceph osd getcrushmap -o crushmap
-sudo crushtool -d crushmap -o crushmap.decom
-sudo sed -i 's|step chooseleaf firstn 0 type host|step chooseleaf firstn 0 type osd|g' crushmap.decom
-sudo crushtool -c crushmap.decom -o crushmap.new
-sudo ceph osd setcrushmap -i crushmap.new
-```
-
-Kiểm tra lại
-```
-(env) [root@cephaio ceph-ansible]# ceph -s
-  cluster:
-    id:     5bb8d5b1-40be-49bc-8494-5006e7f76a60
-    health: HEALTH_OK
- 
-  services:
-    mon: 1 daemons, quorum cephaio (age 9m)
-    mgr: cephaio(active, since 8m)
-    osd: 3 osds: 3 up (since 7m), 3 in (since 7m)
- 
-  data:
-    pools:   1 pools, 1 pgs
-    objects: 0 objects, 0 B
-    usage:   3.0 GiB used, 57 GiB / 60 GiB avail
-    pgs:     1 active+clean
-```
-
 Tới đây đã hoàn thành tài liệu cài Ceph Nautilus bằng Ceph Ansible
 
 ## Nguồn
