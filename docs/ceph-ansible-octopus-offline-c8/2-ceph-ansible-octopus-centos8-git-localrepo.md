@@ -473,6 +473,35 @@ ceph version 15.2.6 (cb8c61a60551b72614257d632a574d420064c17a) octopus (stable)
     pgs:     1 active+undersized 
 ```
 
+Chỉnh lại crushmap (Trong trường hợp cài ALL IN ONE)
+```
+cd /usr/share/ceph-ansible
+sudo ceph osd getcrushmap -o crushmap
+sudo crushtool -d crushmap -o crushmap.decom
+sudo sed -i 's|step chooseleaf firstn 0 type host|step chooseleaf firstn 0 type osd|g' crushmap.decom
+sudo crushtool -c crushmap.decom -o crushmap.new
+sudo ceph osd setcrushmap -i crushmap.new
+```
+
+Kiểm tra lại
+```
+(env) [root@cephaio ceph-ansible]# ceph -s
+  cluster:
+    id:     5bb8d5b1-40be-49bc-8494-5006e7f76a60
+    health: HEALTH_OK
+ 
+  services:
+    mon: 1 daemons, quorum cephaio (age 9m)
+    mgr: cephaio(active, since 8m)
+    osd: 3 osds: 3 up (since 7m), 3 in (since 7m)
+ 
+  data:
+    pools:   1 pools, 1 pgs
+    objects: 0 objects, 0 B
+    usage:   3.0 GiB used, 57 GiB / 60 GiB avail
+    pgs:     1 active+clean
+```
+
 Tới đây đã hoàn thành tài liệu cài Ceph Nautilus bằng Ceph Ansible
 
 ## Nguồn
