@@ -452,24 +452,25 @@ ansible-playbook site.yml -vvvv -i inventory_hosts
 
 Kiểm tra ceph
 ```
-(env) [root@ceph01 ceph-ansible]# ceph -v
-ceph version 14.2.14 (7e94c5afc28f3eaf36151ad1e1453de5f16c4fdf) nautilus (stable)
+(env) [root@cephaio ceph-ansible]# ceph -v
+ceph version 15.2.6 (cb8c61a60551b72614257d632a574d420064c17a) octopus (stable)
 
-(env) [root@ceph01 ceph-ansible]# ceph -s
+(env) [root@cephaio ceph-ansible]# ceph -s
   cluster:
-    id:     f7da7943-d8f1-4528-9c40-ad6fbfd8aad6
-    health: HEALTH_OK
+    id:     5bb8d5b1-40be-49bc-8494-5006e7f76a60
+    health: HEALTH_WARN
+            Degraded data redundancy: 1 pg undersized
  
   services:
-    mon: 3 daemons, quorum ceph01,ceph02,ceph03 (age 6m)
-    mgr: ceph01(active, since 5m)
-    osd: 6 osds: 6 up (since 4m), 6 in (since 4m)
+    mon: 1 daemons, quorum cephaio (age 3m)
+    mgr: cephaio(active, since 2m)
+    osd: 3 osds: 3 up (since 97s), 3 in (since 97s)
  
   data:
-    pools:   0 pools, 0 pgs
+    pools:   1 pools, 1 pgs
     objects: 0 objects, 0 B
-    usage:   6.0 GiB used, 114 GiB / 120 GiB avail
-    pgs:     
+    usage:   3.0 GiB used, 57 GiB / 60 GiB avail
+    pgs:     1 active+undersized 
 ```
 
 Tới đây đã hoàn thành tài liệu cài Ceph Nautilus bằng Ceph Ansible
