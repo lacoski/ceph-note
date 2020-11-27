@@ -1,4 +1,4 @@
-# Hướng dẫn triển khai Ceph Nautilus trên CentOS 8 (Offline)
+# Hướng dẫn triển khai Ceph Octopus trên CentOS 8 (Offline)
 
 ## Phần 1: Chuẩn bị
 

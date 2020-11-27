@@ -46,12 +46,25 @@ init 6
 ### Cấu hình chỉ định local repo
 > Thực hiện trên tất cả các node Ceph
 
+Disable Gateway tới Internet `/etc/sysconfig/network-scripts/ifcfg-eth0`
+```
+...
+#GATEWAY=10.10.30.1
+DNS1=8.8.8.8
+```
+
+Khởi động lại network
+```
+ifdown eth0 && ifup eth0
+```
+
 Disable tất cả repo hiện có
 ```
 yum clean all
 mv /etc/yum.repos.d /etc/yum.repos.d.bak
 ```
 
+Cấu hình Repo
 ```
 yum clean all
 mv /etc/yum.repos.d /etc/yum.repos.d.bak
@@ -151,16 +164,21 @@ gpgkey=http://10.10.30.54/epel/8/x86_64/RPM-GPG-KEY-EPEL-8
 EOF
 ```
 
-Disable Gateway tới Internet `/etc/sysconfig/network-scripts/ifcfg-eth0`
+Cài đặt EPEL
 ```
-...
-#GATEWAY=10.10.30.1
-DNS1=8.8.8.8
+yum -y install epel-release
 ```
 
-Khởi động lại network
+Xóa các Repo EPEL mới sinh ra (Vì đã có local repo)
 ```
-ifdown eth0 && ifup eth0
+rm -rf /etc/yum.repos.d/epel*
+yum clean all
+```
+
+Kết quả
+```
+[root@cephaio ~]# ls /etc/yum.repos.d/
+CentOS-Epel.repo  CentOS-LocalRepo.repo  ceph.repo
 ```
 
 ### Cấu hình NTP
@@ -202,13 +220,13 @@ sudo chmod 0440 /etc/sudoers.d/cephuser
 Lưu ý:
 - Thực hiện tại Ceph01
 
-Lưu ý:
-- Copy backup Ceph Ansible tới Node Ceph01
-
 Bổ sung các gói quan trọng
 ```
-yum install gzip tar tmux -y
+yum install gzip tar byobu -y
 ```
+
+Lưu ý:
+- Copy backup Ceph Ansible tới Node Ceph01
 
 Kết quả
 ```
@@ -417,18 +435,7 @@ Kết quả
 
 Thực hiện các bước tiếp theo trong byobu
 ```
-tmux
-```
-
-Lưu ý khi thao tác với tmux cơ bản:
-```
-# start terminal
-tmux
-
-# Re actach
-tmux a
-
-# Out: ctrl b + d
+byobu
 ```
 
 Lưu ý

@@ -27,8 +27,9 @@ init 6
 
 ## Bước 1: Cài đặt gói cần thiết
 ```
+yum -y install epel-release
 yum -y install nginx
-yum -y install tmux rsync lftp
+yum -y install byobu rsync lftp
 ```
 
 Khởi động nginx
@@ -65,9 +66,9 @@ Phần quyền
 sudo chmod +x /etc/centos8_reposync.sh
 ```
 
-Bật tmux (Giống byobu trên C7)
+Bật byobu
 ```
-tmux
+byobu
 ```
 
 Chạy scripts
@@ -79,18 +80,14 @@ bash -x /etc/centos8_reposync.sh
 sudo /etc/centos8_reposync.sh
 ```
 
-Lưu ý khi thao tác với tmux cơ bản:
+## Bước 3: Tạo Repo EPEL - CENTOS 8
+
+Bật byobu
 ```
-# start terminal
-tmux
-
-# Re actach
-tmux a
-
-# Out: ctrl b + d
+byobu
 ```
 
-## Bước 3: Tạo repo Epel
+Sync repo
 ```
 mkdir -p /var/www/repo/epel/8/x86_64
 rsync -avz --delete --progress rsync://mirrors.bfsu.edu.cn/epel/8/Everything/x86_64/ /var/www/repo/epel/8/x86_64
@@ -105,9 +102,13 @@ Tạo thư mục
 mkdir -p /var/www/repo/ceph/
 ```
 
-Chạy tmux và sync repo
+Bật byobu
 ```
-tmux a
+byobu
+```
+
+Sync repo
+```
 cd /var/www/repo/ceph/
 lftp -c 'mirror --parallel=100 https://download.ceph.com/rpm-octopus/el8/ ;exit'
 
