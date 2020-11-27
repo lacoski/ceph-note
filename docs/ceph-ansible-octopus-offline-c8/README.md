@@ -1,0 +1,15 @@
+# Hướng dẫn triển khai Ceph Nautilus trên CentOS 8 (Offline)
+
+## Phần 1: Chuẩn bị
+
+### Bước 1: Backup gói Ceph Ansbile từ Git
+
+[Hướng dẫn Backup Ceph Ansible Octopus (Cài từ Git)](/docs/ceph-ansible-octopus-offline-c8/0-backup-ceph-ansible-git.md)
+
+### Bước 2: Triển khai Local Repo CentOS 7 (Base + EPEL + Ceph Octopus)
+
+[Hướng dẫn triển khai Local Repo Mirros CentOS 8](/docs/ceph-ansible-octopus-offline-c8/1-local-repo-centos8-mirros.md)
+
+## Phần 2: Triển khai Ceph với Ceph Ansible Offline
+
+[Hướng dẫn cài đặt Ceph Octopus AIO bằng Ceph Ansible (CentOS 8)](/docs/ceph-ansible-octopus-offline-c8/2-ceph-ansible-octopus-centos8-git-localrepo.md)

@@ -1,26 +1,26 @@
-# Hướng dẫn Backup Ceph Ansible Nautilus (Cài từ Git)
+# Hướng dẫn Backup Ceph Ansible Octopus (Cài từ Git) - CentOS 8
 
 ## Lưu ý:
 - Mục tiêu Backup source Ceph Ansible từ Git phục vụ cài Ceph Ansible hoàn toàn từ local
+- Môi trường CentOS 8
 
 ## Chuẩn bị
 
 Tạo thư mục
 ```
-mkdir -p /root/backup-ceph-ansible/
+mkdir -p /root/backup-ceph-ansible-octopus/
 ```
 
 Cài môi trường cần thiết
 ```
-yum install epel-release -y
-yum install python3 python3-pip byobu git -y
+yum install python3 python3-pip git -y
 ```
 
 ## Bước 1: Backup Ceph Ansible từ Git
 
 ```
-mkdir -p /root/backup-ceph-ansible/01-ceph-ansible/
-cd /root/backup-ceph-ansible/01-ceph-ansible/ && wget https://github.com/ceph/ceph-ansible/archive/stable-4.0.zip
+mkdir -p /root/backup-ceph-ansible-octopus/01-ceph-ansible/
+cd /root/backup-ceph-ansible-octopus/01-ceph-ansible/ && wget https://github.com/ceph/ceph-ansible/archive/stable-5.0.zip
 cd
 ```
 
@@ -28,17 +28,17 @@ cd
 > Lưu ý: Lấy nội dung tư requirements.txt của Ceph Ansible
 
 ```
-mkdir -p /root/backup-ceph-ansible/02-pip/
-mkdir -p /root/backup-ceph-ansible/02-pip/virtualenv
-mkdir -p /root/backup-ceph-ansible/02-pip/requirements
+mkdir -p /root/backup-ceph-ansible-octopus/02-pip/
+mkdir -p /root/backup-ceph-ansible-octopus/02-pip/virtualenv
+mkdir -p /root/backup-ceph-ansible-octopus/02-pip/requirements
 
-cd /root/backup-ceph-ansible/02-pip/virtualenv
-pip3 download -d /root/backup-ceph-ansible/02-pip/venv virtualenv
-pip3 install --no-index --find-links=/root/backup-ceph-ansible/02-pip/venv virtualenv
+cd /root/backup-ceph-ansible-octopus/02-pip/virtualenv
+pip3 download -d /root/backup-ceph-ansible-octopus/02-pip/venv virtualenv
+pip3 install --no-index --find-links=/root/backup-ceph-ansible-octopus/02-pip/venv virtualenv
 
-cd /root/backup-ceph-ansible/02-pip/requirements
+cd /root/backup-ceph-ansible-octopus/02-pip/requirements
 
-cat <<EOF> /root/backup-ceph-ansible/02-pip/requirements.txt
+cat <<EOF> /root/backup-ceph-ansible-octopus/02-pip/requirements.txt
 ansible>=2.9,<2.10,!=2.9.10
 netaddr
 EOF
@@ -46,16 +46,16 @@ EOF
 cd /root/
 virtualenv env -p python3
 source env/bin/activate
-pip3 download -d /root/backup-ceph-ansible/02-pip/requirements -r /root/backup-ceph-ansible/02-pip/requirements.txt
-pip3 install --no-index --find-links=/root/backup-ceph-ansible/02-pip/requirements -r /root/backup-ceph-ansible/02-pip/requirements.txt
+pip3 download -d /root/backup-ceph-ansible-octopus/02-pip/requirements -r /root/backup-ceph-ansible-octopus/02-pip/requirements.txt
+pip3 install --no-index --find-links=/root/backup-ceph-ansible-octopus/02-pip/requirements -r /root/backup-ceph-ansible-octopus/02-pip/requirements.txt
 ```
 
 Kết quả
 ```
-(env) [root@localrepo3051 backup-ceph-ansible]# tree
+(env) [root@repocent8 backup-ceph-ansible-octopus]# tree
 .
 ├── 01-ceph-ansible
-│   └── stable-4.0.zip
+│   └── stable-5.0.zip
 └── 02-pip
     ├── requirements
     │   ├── ansible-2.9.15.tar.gz
