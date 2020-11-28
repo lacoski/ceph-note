@@ -17,3 +17,4 @@
 
 
 ### Triển khai Ceph Octopus 3 Node bằng Ceph Ansible (CentOS 8)
+[Hướng dẫn cài đặt Ceph Octopus 3 Node bằng Ceph Ansible (CentOS 8)](/docs/ceph-ansible-octopus-offline-c8/4-ceph-ansible-octopus-3-node-centos8-git-localrepo.md)
