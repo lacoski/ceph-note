@@ -544,10 +544,24 @@ ansible-playbook site.yml -vvvv -i inventory_hosts
 
 Kiểm tra ceph
 ```
-(env) [root@cephaio ceph-ansible]# ceph -v
+(env) [root@ceph01 ceph-ansible]# ceph -v
 ceph version 15.2.6 (cb8c61a60551b72614257d632a574d420064c17a) octopus (stable)
 
-(env) [root@cephaio ceph-ansible]# ceph -s
+(env) [root@ceph01 ceph-ansible]# ceph -s
+  cluster:
+    id:     9ee6309f-5821-46fe-a38a-f67b99e52f0d
+    health: HEALTH_OK
+ 
+  services:
+    mon: 3 daemons, quorum ceph01,ceph02,ceph03 (age 19h)
+    mgr: ceph01(active, since 19h)
+    osd: 6 osds: 6 up (since 19h), 6 in (since 19h)
+ 
+  data:
+    pools:   1 pools, 1 pgs
+    objects: 0 objects, 0 B
+    usage:   6.0 GiB used, 114 GiB / 120 GiB avail
+    pgs:     1 active+clean 
 ```
 Tới đây đã hoàn thành tài liệu cài Ceph Nautilus bằng Ceph Ansible
 
